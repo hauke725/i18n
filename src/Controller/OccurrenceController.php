@@ -35,22 +35,27 @@ class OccurrenceController extends Controller
     {
         $data = json_decode($request->getContent(), true);
 
-        foreach ($data as $actionName => $keyName) {
-            if (!is_string($actionName) || !is_string($keyName)) {
-                $this->json(['error' => 'occurrences have to be in the format action:key in an associative array'], Response::HTTP_BAD_REQUEST);
+        foreach ($data as $actionName => $keys) {
+            if (!is_string($actionName) || !is_array($keys)) {
+                $this->json(['error' => 'occurrences have to be in the format action:keys in an associative array'], Response::HTTP_BAD_REQUEST);
             }
             $action = $em->getRepository(Action::class)->findOneBy(['name' => $actionName]);
             if ($action === null) {
                 $action = new Action($actionName);
                 $em->persist($action);
             }
-            $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $keyName]);
-            if ($key === null) {
-                $key = new TranslationKey($keyName);
-                $em->persist($key);
+            foreach ($keys as $keyName) {
+                if (!is_string($keyName)) {
+                    $this->json(['error' => 'key names array must only contain string values'], Response::HTTP_BAD_REQUEST);
+                }
+                $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $keyName]);
+                if ($key === null) {
+                    $key = new TranslationKey($keyName);
+                    $em->persist($key);
+                }
+                $occurrence = new TranslationOccurrence($action, $key);
+                $em->persist($occurrence);
             }
-            $occurrence = new TranslationOccurrence($action, $key);
-            $em->persist($occurrence);
         }
         try {
             $em->flush();
