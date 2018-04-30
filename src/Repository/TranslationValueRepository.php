@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Language;
+use App\Entity\TranslationFile;
 use App\Entity\TranslationValue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +23,22 @@ class TranslationValueRepository extends ServiceEntityRepository
         parent::__construct($registry, TranslationValue::class);
     }
 
-//    /**
-//     * @return TranslationValue[] Returns an array of TranslationValue objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param TranslationFile $file
+     * @param Language $language
+     * @return TranslationValue[]
+     */
+    public function findLatestByFileAndLanguage(TranslationFile $file, Language $language): array
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $sql = 'SELECT * FROM (
+                  SELECT *, rank() OVER (
+                    PARTITION BY tv.translation_key_id ORDER BY tv.created DESC
+                  ) FROM translation_value tv WHERE tv.file_id = :file AND tv.language_id = :lang
+                ) as sq WHERE rank = 1';
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(TranslationValue::class, 'tv');
+        return $this->getEntityManager()->createNativeQuery($sql, $rsm)->execute([
+            ':lang' => $language->getId(), ':file' => $file->getId(),
+        ]);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?TranslationValue
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

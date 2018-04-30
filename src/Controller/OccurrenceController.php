@@ -13,7 +13,6 @@ use App\Entity\Action;
 use App\Entity\TranslationKey;
 use App\Entity\TranslationOccurrence;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,28 +31,34 @@ class OccurrenceController extends Controller
      * @param LoggerInterface $logger
      * @return Response
      */
-    public function reportOccurrence(Request $request, EntityManagerInterface $em, LoggerInterface $logger): Response
+    public function report(Request $request, EntityManagerInterface $em, LoggerInterface $logger): Response
     {
         $data = json_decode($request->getContent(), true);
-        $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
-        if ($action === null) {
-            $action = new Action($data['action']);
-            $em->persist($action);
+
+        foreach ($data as $actionName => $keyName) {
+            if (!is_string($actionName) || !is_string($keyName)) {
+                $this->json(['error' => 'occurrences have to be in the format action:key in an associative array'], Response::HTTP_BAD_REQUEST);
+            }
+            $action = $em->getRepository(Action::class)->findOneBy(['name' => $actionName]);
+            if ($action === null) {
+                $action = new Action($actionName);
+                $em->persist($action);
+            }
+            $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $keyName]);
+            if ($key === null) {
+                $key = new TranslationKey($keyName);
+                $em->persist($key);
+            }
+            $occurrence = new TranslationOccurrence($action, $key);
+            $em->persist($occurrence);
         }
-        $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $data['key']]);
-        if ($key === null) {
-            $key = new TranslationKey($data['key']);
-            $em->persist($key);
-        }
-        $occurrence = new TranslationOccurrence($action, $key);
-        $em->persist($occurrence);
         try {
             $em->flush();
-        } catch (ORMException|OptimisticLockException $e) {
+        } catch (ORMException $e) {
             $logger->error($e->getMessage());
-            return new Response('db failure', Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->json(['error' => 'db failure'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        return new Response();
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -62,7 +67,7 @@ class OccurrenceController extends Controller
      * @param EntityManagerInterface $em
      * @return JsonResponse|Response
      */
-    public function listTranslationOccurrences(Request $request, EntityManagerInterface $em): Response
+    public function index(Request $request, EntityManagerInterface $em): Response
     {
         $data = $request->query->all();
         if (array_key_exists('key', $data)) {
@@ -78,7 +83,7 @@ class OccurrenceController extends Controller
             }
             $occurrences = $action->getOccurrences();
         } else {
-            return new Response('invalid request structure, need to include key or action parameter', Response::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'invalid request structure, need to include key or action parameter'], Response::HTTP_BAD_REQUEST);
         }
         return new JsonResponse($occurrences->map(function (TranslationOccurrence $occurrence) {
             return [

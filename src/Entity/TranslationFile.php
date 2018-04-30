@@ -28,4 +28,9 @@ class TranslationFile extends AbstractEntity
     {
         return $this->name;
     }
+
+    public function getValues(Language $language)
+    {
+
+    }
 }

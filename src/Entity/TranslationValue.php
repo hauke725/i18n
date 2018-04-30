@@ -11,6 +11,12 @@ class TranslationValue extends AbstractEntity
 {
 
     /**
+     * @var TranslationKey
+     * @ORM\ManyToOne(targetEntity="TranslationKey")
+     */
+    private $translationKey;
+
+    /**
      * @var string
      * @ORM\Column(type="text")
      */
@@ -23,14 +29,24 @@ class TranslationValue extends AbstractEntity
     private $file;
 
     /**
+     * @var Language
+     * @ORM\ManyToOne(targetEntity="Language")
+     */
+    private $language;
+
+    /**
      * TranslationValue constructor.
+     * @param TranslationKey $translationKey
      * @param string $value
+     * @param Language $language
      * @param TranslationFile $file
      */
-    public function __construct(string $value, TranslationFile $file)
+    public function __construct(TranslationKey $translationKey, string $value, Language $language, TranslationFile $file)
     {
-        $this->file = $file;
+        $this->translationKey = $translationKey;
         $this->value = $value;
+        $this->language = $language;
+        $this->file = $file;
     }
 
     public function getValue(): string
@@ -44,5 +60,21 @@ class TranslationValue extends AbstractEntity
     public function getFile(): TranslationFile
     {
         return $this->file;
+    }
+
+    /**
+     * @return Language
+     */
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
+    /**
+     * @return TranslationKey
+     */
+    public function getTranslationKey(): TranslationKey
+    {
+        return $this->translationKey;
     }
 }
