@@ -43,7 +43,7 @@ class ValueController extends Controller
         }
         foreach ($data as $keyName => $value) {
             if (!is_string($keyName) || !is_string($value)) {
-                $this->json(['error' => 'translations have to be in the format key:value in an associative array'], Response::HTTP_BAD_REQUEST);
+                return $this->json(['error' => 'translations have to be in the format key:value in an associative array'], Response::HTTP_BAD_REQUEST);
             }
             $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $keyName]);
             if ($key === null) {
