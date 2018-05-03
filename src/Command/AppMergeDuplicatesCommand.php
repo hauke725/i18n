@@ -25,19 +25,21 @@ class AppMergeDuplicatesCommand extends ContainerAwareCommand
         $io = new SymfonyStyle($input, $output);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $actionRepo = $em->getRepository(Action::class);
-        foreach ($actionRepo->findInstanceOfDuplicates() as $instance) {
+        $instances = $actionRepo->findInstanceOfDuplicates();
+        $progress = $io->createProgressBar(count($instances));
+        foreach ($instances as $instance) {
+            $progress->advance();
             /** @var Action $dup */
             foreach ($actionRepo->findBy(['name' => $instance->getName()]) as $dup) {
                 if ($dup->getId() === $instance->getId()) {
                     continue;
                 }
-                $io->note('merging ' . $dup->getId() . ' into ' .$instance->getId());
                 TranslationOccurrence::mergeActions($dup, $instance);
                 $em->remove($dup);
             }
             $em->flush();
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Everything merged!');
     }
 }
