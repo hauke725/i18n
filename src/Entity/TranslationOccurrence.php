@@ -42,7 +42,7 @@ class TranslationOccurrence extends AbstractEntity
         $this->action = $action;
         if ($tokenAction) {
             $tokenAction->getTokenOccurrences()->add($this);
-            $this->tokenAction = $translationKey;
+            $this->tokenAction = $tokenAction;
         }
     }
 

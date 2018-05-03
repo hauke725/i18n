@@ -23,7 +23,7 @@ class Action extends AbstractEntity
     private $occurrences;
     /**
      * @var TranslationOccurrence[]
-     * @ORM\OneToMany(targetEntity="TranslationOccurrence", mappedBy="action")
+     * @ORM\OneToMany(targetEntity="TranslationOccurrence", mappedBy="tokenAction")
      */
     private $tokenOccurrences;
 
