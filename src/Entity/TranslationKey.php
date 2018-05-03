@@ -25,6 +25,12 @@ class TranslationKey extends AbstractEntity
     private $occurrences;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted = false;
+
+    /**
      * TranslationKey constructor.
      * @param $name
      */
@@ -56,5 +62,21 @@ class TranslationKey extends AbstractEntity
     public function getLastOccurrence(): ?TranslationOccurrence
     {
         return $this->getOccurrences()->isEmpty() ? null : $this->getOccurrences()->last();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
     }
 }

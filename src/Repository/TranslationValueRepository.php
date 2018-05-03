@@ -31,9 +31,9 @@ class TranslationValueRepository extends ServiceEntityRepository
     public function findLatestByFileAndLanguage(TranslationFile $file, Language $language): array
     {
         $sql = 'SELECT * FROM (
-                  SELECT *, rank() OVER (
+                  SELECT tv.*, rank() OVER (
                     PARTITION BY tv.translation_key_id ORDER BY tv.created DESC
-                  ) FROM translation_value tv WHERE tv.file_id = :file AND tv.language_id = :lang
+                  ) FROM translation_value tv, translation_key tk WHERE tv.file_id = :file AND tv.language_id = :lang AND tv.translation_key_id = tk.id AND tk.deleted = false
                 ) as sq WHERE rank = 1';
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(TranslationValue::class, 'tv');

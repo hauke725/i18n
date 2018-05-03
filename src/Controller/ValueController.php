@@ -88,4 +88,33 @@ class ValueController extends Controller
         }
         return $this->json($result);
     }
+
+    /**
+     * @Route("/values/{fileName}/{langName}/{keyName}", name="removeValue", methods={"DELETE"})
+     * @param string $fileName
+     * @param string $langName
+     * @param string $keyName
+     * @param EntityManagerInterface $em
+     * @param LoggerInterface $logger
+     * @return Response
+     */
+    public function remove(string $fileName, string $langName, string $keyName, EntityManagerInterface $em, LoggerInterface $logger): Response
+    {
+        $file = $em->getRepository(TranslationFile::class)->findOneBy(['name' => $fileName]);
+        if ($file === null) {
+            return $this->json(['error' => 'file not found'], Response::HTTP_NOT_FOUND);
+        }
+        $language = $em->getRepository(Language::class)->findOneBy(['name' => $langName]);
+        if ($language === null) {
+            return $this->json(['error' => 'language not found'], Response::HTTP_NOT_FOUND);
+        }
+        $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $keyName, 'deleted' => false]);
+        if ($key === null) {
+            return $this->json(['error' => 'key not found'], Response::HTTP_NOT_FOUND);
+        }
+        $logger->info('deleting key ' . $keyName);
+        $key->setDeleted(true);
+        $em->persist($key);
+        $em->flush();
+    }
 }
