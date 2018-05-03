@@ -12,13 +12,19 @@ class TranslationOccurrence extends AbstractEntity
 
     /**
      * @var Action
-     * @ORM\ManyToOne(targetEntity="Action")
+     * @ORM\ManyToOne(targetEntity="Action", inversedBy="occurrences")
      */
     private $action;
+    /**
+     * @var Action
+     * @ORM\ManyToOne(targetEntity="Action", inversedBy="tokenOccurrences")
+     */
+    private $tokenAction;
 
     /**
      * @var TranslationKey
      * @ORM\ManyToOne(targetEntity="TranslationKey", inversedBy="occurrences")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $translationKey;
 
@@ -26,13 +32,18 @@ class TranslationOccurrence extends AbstractEntity
      * TranslationOccurrence constructor.
      * @param Action $action
      * @param TranslationKey $translationKey
+     * @param Action|null $tokenAction
      */
-    public function __construct(Action $action, TranslationKey $translationKey)
+    public function __construct(Action $action, TranslationKey $translationKey, Action $tokenAction = null)
     {
+        $this->translationKey = $translationKey;
         $translationKey->getOccurrences()->add($this);
         $action->getOccurrences()->add($this);
-        $this->translationKey = $translationKey;
         $this->action = $action;
+        if ($tokenAction) {
+            $tokenAction->getTokenOccurrences()->add($this);
+            $this->tokenAction = $translationKey;
+        }
     }
 
 

@@ -25,6 +25,11 @@ class OccurrenceController extends Controller
 {
 
     /**
+     * A request to this route should have this basic body:<br>
+     * {"key": "occurrence", "key2": "occurrence2"}
+     * <br>
+     * The occurrence values can be anything but a url is suggested. In case of a URL the path part of the url without
+     * domain and request is separately stored to be later accessed using {@see index}
      * @Route("/occurrences", methods={"POST"})
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -44,6 +49,16 @@ class OccurrenceController extends Controller
                 $action = new Action($actionName);
                 $em->persist($action);
             }
+            $tokenName = parse_url($actionName, PHP_URL_PATH);
+            if ($tokenName !== false) {
+                $tokenAction = $em->getRepository(Action::class)->findOneBy(['name' => $tokenName]);
+                if ($tokenAction === null) {
+                    $tokenAction = new Action($tokenName);
+                    $em->persist($tokenAction);
+                }
+            } else {
+                $tokenAction = null;
+            }
             foreach ($keys as $keyName) {
                 if (!is_string($keyName)) {
                     $this->json(['error' => 'key names array must only contain string values'], Response::HTTP_BAD_REQUEST);
@@ -53,7 +68,7 @@ class OccurrenceController extends Controller
                     $key = new TranslationKey($keyName);
                     $em->persist($key);
                 }
-                $occurrence = new TranslationOccurrence($action, $key);
+                $occurrence = new TranslationOccurrence($action, $key, $tokenAction);
                 $em->persist($occurrence);
             }
         }
@@ -67,6 +82,15 @@ class OccurrenceController extends Controller
     }
 
     /**
+     * A request to this route can have three different basic forms:<br>
+     * ?key=foo             lists all occurrences of a given key<br>
+     * ?action=foo&strict   lists all occurrences of keys on this exact action<br>
+     * ?action=foo          lists all occurrences of keys on a given action and similar actions. If the action has the
+     * form of a URL then only the path part (without host or query) is used<br>
+     * <br>
+     * The non strict action request can be helpful to group occurrences across different environments
+     * (eg stating.test.com vs www.test.com) or across different variants of the same page
+     * (eg /product?id=1 vs /product?id=2)
      * @Route("/occurrences", methods={"GET"})
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -82,11 +106,20 @@ class OccurrenceController extends Controller
             }
             $occurrences = $key->getOccurrences();
         } elseif (array_key_exists('action', $data)) {
-            $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
-            if ($action === null) {
-                $action = new Action($data['action']);
+            $tokenName = parse_url($data['action'], PHP_URL_PATH);
+            if ($tokenName === false || array_key_exists('strict', $data)) {
+                $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
+                if ($action === null) {
+                    $action = new Action($data['action']);
+                }
+                $occurrences = $action->getOccurrences();
+            } else {
+                $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
+                if ($action === null) {
+                    $action = new Action($data['action']);
+                }
+                $occurrences = $action->getTokenOccurrences();
             }
-            $occurrences = $action->getOccurrences();
         } else {
             return $this->json(['error' => 'invalid request structure, need to include key or action parameter'], Response::HTTP_BAD_REQUEST);
         }

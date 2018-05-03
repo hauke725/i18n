@@ -21,6 +21,11 @@ class Action extends AbstractEntity
      * @ORM\OneToMany(targetEntity="TranslationOccurrence", mappedBy="action")
      */
     private $occurrences;
+    /**
+     * @var TranslationOccurrence[]
+     * @ORM\OneToMany(targetEntity="TranslationOccurrence", mappedBy="action")
+     */
+    private $tokenOccurrences;
 
     /**
      * Action constructor.
@@ -29,6 +34,7 @@ class Action extends AbstractEntity
     public function __construct($name)
     {
         $this->occurrences = new ArrayCollection();
+        $this->tokenOccurrences = new ArrayCollection();
         $this->name = $name;
     }
 
@@ -43,5 +49,13 @@ class Action extends AbstractEntity
     public function getOccurrences(): Collection
     {
         return $this->occurrences;
+    }
+
+    /**
+     * @return TranslationOccurrence[]|Collection
+     */
+    public function getTokenOccurrences(): Collection
+    {
+        return $this->tokenOccurrences;
     }
 }

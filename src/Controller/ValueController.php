@@ -17,6 +17,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ValueController extends Controller
 {
     /**
+     * A request to this route may contain multiple translations in its body:<br>
+     * {"key": "value", "key2": "value2"}
+     * <br>
+     * These are then stored while preserving a history of eventual preexisting values for the keys.
+     * Files and languages are created on the fly if they have not been referenced before.
      * @Route("/values/{fileName}/{langName}", name="addValue", methods={"POST"})
      * @param string $fileName
      * @param string $langName
@@ -49,6 +54,9 @@ class ValueController extends Controller
             if ($key === null) {
                 $key = new TranslationKey($keyName);
                 $em->persist($key);
+            } elseif ($key->isDeleted()) {
+                $key->setDeleted(false);
+                $em->persist($key);
             }
             $value = new TranslationValue($key, $value, $language, $file);
             $em->persist($value);
@@ -63,6 +71,10 @@ class ValueController extends Controller
     }
 
     /**
+     * This returns a whole translation file for the given language / file pair in json format:<br>
+     * {"key": "value", "key2": "value2"}
+     * <br>
+     * History and occurrences may be retrieved using their respective routes.
      * @Route("/values/{file}/{langName}", name="indexValues", methods={"GET"})
      * @param string $file
      * @param string $langName
@@ -90,6 +102,8 @@ class ValueController extends Controller
     }
 
     /**
+     * It is possible to delete a key using this route. It will no longer show up in respective {@see index} requests.
+     * It can be re-added however using {@see add}
      * @Route("/values/{fileName}/{langName}/{keyName}", name="removeValue", methods={"DELETE"})
      * @param string $fileName
      * @param string $langName
