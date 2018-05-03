@@ -59,4 +59,30 @@ class TranslationOccurrence extends AbstractEntity
     {
         return $this->translationKey;
     }
+
+    /**
+     * @param Action $tokenAction
+     */
+    private function setTokenAction(Action $tokenAction): void
+    {
+        $this->tokenAction = $tokenAction;
+    }
+
+    /**
+     * @param Action $action
+     */
+    private function setAction(Action $action): void
+    {
+        $this->action = $action;
+    }
+
+    public static function mergeActions(Action $from, Action $to): void
+    {
+        foreach ($from->getTokenOccurrences() as $tokenOccurrence) {
+            $tokenOccurrence->setTokenAction($to);
+        }
+        foreach ($from->getOccurrences() as $occurrence) {
+            $occurrence->setAction($to);
+        }
+    }
 }

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Action;
+use App\Entity\TranslationOccurrence;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +21,21 @@ class ActionRepository extends ServiceEntityRepository
         parent::__construct($registry, Action::class);
     }
 
-//    /**
-//     * @return Action[] Returns an array of Action objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * finds the first action that is one instance of a group of duplicates (concerning action names)
+     * @param TranslationFile $file
+     * @param Language $language
+     * @return TranslationValue[]
+     */
+    public function findInstanceOfDuplicates(): array
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $sql = 'SELECT * FROM (
+                  SELECT a.*, (select count(id) from action where name = a.name) as num, rank() OVER (
+                    PARTITION BY a.name ORDER BY a.id ASC
+                  ) FROM action a
+                ) as sq WHERE rank = 1 AND num > 1';
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Action::class, 'a');
+        return $this->getEntityManager()->createNativeQuery($sql, $rsm)->execute();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Action
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
