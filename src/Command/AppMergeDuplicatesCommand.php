@@ -26,10 +26,9 @@ class AppMergeDuplicatesCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $actionRepo = $em->getRepository(Action::class);
         $instances = $actionRepo->findInstanceOfDuplicates();
-        $progress = $io->createProgressBar(count($instances));
+        $progress = $io->createProgressBar(\count($instances));
         foreach ($instances as $instance) {
             $progress->advance();
-            /** @var Action $dup */
             foreach ($actionRepo->findBy(['name' => $instance->getName()]) as $dup) {
                 if ($dup->getId() === $instance->getId()) {
                     continue;

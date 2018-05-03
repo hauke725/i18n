@@ -23,9 +23,7 @@ class ActionRepository extends ServiceEntityRepository
 
     /**
      * finds the first action that is one instance of a group of duplicates (concerning action names)
-     * @param TranslationFile $file
-     * @param Language $language
-     * @return TranslationValue[]
+     * @return Action[]
      */
     public function findInstanceOfDuplicates(): array
     {
