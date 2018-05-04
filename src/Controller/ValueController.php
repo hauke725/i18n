@@ -9,6 +9,7 @@ use App\Entity\TranslationValue;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -98,7 +99,9 @@ class ValueController extends Controller
         foreach ($values as $value) {
             $result[$value->getTranslationKey()->getName()] = $value->getValue();
         }
-        return $this->json($result);
+        $response = new JsonResponse($result);
+        $response->setEncodingOptions($response->getEncodingOptions()|JSON_PRETTY_PRINT);
+        return $response;
     }
 
     /**
