@@ -22,15 +22,15 @@ class ValueController extends Controller
      * <br>
      * These are then stored while preserving a history of eventual preexisting values for the keys.
      * Files and languages are created on the fly if they have not been referenced before.
-     * @Route("/values/{fileName}/{langName}", name="addValue", methods={"POST"})
-     * @param string $fileName
+     * @Route("/values/{langName}/{fileName}", name="addValue", methods={"POST"})
      * @param string $langName
+     * @param string $fileName
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param LoggerInterface $logger
      * @return Response
      */
-    public function add(string $fileName, string $langName, Request $request, EntityManagerInterface $em, LoggerInterface $logger): Response
+    public function add(string $langName, string $fileName, Request $request, EntityManagerInterface $em, LoggerInterface $logger): Response
     {
         $data = json_decode($request->getContent(), true);
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -75,14 +75,14 @@ class ValueController extends Controller
      * {"key": "value", "key2": "value2"}
      * <br>
      * History and occurrences may be retrieved using their respective routes.
-     * @Route("/values/{file}/{langName}", name="indexValues", methods={"GET"})
-     * @param string $file
+     * @Route("/values/{langName}/{file}", name="indexValues", methods={"GET"})
      * @param string $langName
+     * @param string $file
      * @param EntityManagerInterface $em
      * @param LoggerInterface $logger
      * @return Response
      */
-    public function index(string $file, string $langName, EntityManagerInterface $em, LoggerInterface $logger): Response
+    public function index(string $langName, string $file, EntityManagerInterface $em, LoggerInterface $logger): Response
     {
         $language = $em->getRepository(Language::class)->findOneBy(['name' => $langName]);
         if ($language === null) {
