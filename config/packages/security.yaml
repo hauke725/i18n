@@ -1,0 +1,24 @@
+security:
+    providers:
+        in_memory: { memory: ~ }
+        user_db:
+            entity:
+                class: App\Entity\ApiUser
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            guard:
+                authenticators:
+                    - App\Security\ApiKeyAuthenticator
+                provider: user_db
+    access_control:
+        # require ROLE_OCCURRENCE for /occurrence
+        - { path: ^/occurrence, roles: ROLE_OCCURRENCE }
+        # require ROLE_USER for /+
+        - { path: ^/.+, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_USER:  ROLE_OCCURRENCE
