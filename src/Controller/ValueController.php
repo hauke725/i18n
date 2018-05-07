@@ -59,6 +59,11 @@ class ValueController extends Controller
                 $key->setDeleted(false);
                 $em->persist($key);
             }
+            $old = $em->getRepository(TranslationValue::class)->findBy(['translationKey' => $key], ['created' => 'desc'], 1);
+            if (\count($old) && $old[0]->getValue() === $value) {
+                // nothing changed, don't save the same thing twice
+                continue;
+            }
             $value = new TranslationValue($key, $value, $language, $file);
             $em->persist($value);
         }
