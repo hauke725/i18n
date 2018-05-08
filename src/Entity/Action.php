@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Action extends AbstractEntity
 {
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="text")
      */
     private $name;
 
