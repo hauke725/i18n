@@ -114,7 +114,7 @@ class OccurrenceController extends Controller
                 }
                 $occurrences = $action->getOccurrences();
             } else {
-                $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
+                $action = $em->getRepository(Action::class)->findOneBy(['name' => $tokenName]);
                 if ($action === null) {
                     $action = new Action($data['action']);
                 }
