@@ -90,7 +90,8 @@ class OccurrenceController extends Controller
      * <br>
      * The non strict action request can be helpful to group occurrences across different environments
      * (eg stating.test.com vs www.test.com) or across different variants of the same page
-     * (eg /product?id=1 vs /product?id=2)
+     * (eg /product?id=1 vs /product?id=2)<br>
+     * The routes only report the latest occurrence per key/action (depending on the route) with the date a separate key
      * @Route("/occurrences", methods={"GET"})
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -100,35 +101,64 @@ class OccurrenceController extends Controller
     {
         $data = $request->query->all();
         if (array_key_exists('key', $data)) {
-            $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $data['key']]);
-            if ($key === null) {
-                $key = new TranslationKey($data['key']);
-            }
-            $occurrences = $key->getOccurrences();
-        } elseif (array_key_exists('action', $data)) {
-            $tokenName = parse_url($data['action'], PHP_URL_PATH);
-            if ($tokenName === false || array_key_exists('strict', $data)) {
-                $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
-                if ($action === null) {
-                    $action = new Action($data['action']);
-                }
-                $occurrences = $action->getOccurrences();
-            } else {
-                $action = $em->getRepository(Action::class)->findOneBy(['name' => $tokenName]);
-                if ($action === null) {
-                    $action = new Action($data['action']);
-                }
-                $occurrences = $action->getTokenOccurrences();
-            }
-        } else {
-            return $this->json(['error' => 'invalid request structure, need to include key or action parameter'], Response::HTTP_BAD_REQUEST);
+            $occurrences = $this->getKeyOccurrences($em, $data);
+
+            return $this->json(array_map(function (TranslationOccurrence $occurrence) {
+                return [
+                    'date' => $occurrence->getCreated()->format('Y-m-d H:i:s'),
+                    'action' => $occurrence->getAction()->getName(),
+                ];
+            }, $occurrences));
         }
-        return new JsonResponse($occurrences->map(function (TranslationOccurrence $occurrence) {
-            return [
-                'date' => $occurrence->getCreated()->format('Y-m-d H:i:s'),
-                'action' => $occurrence->getAction()->getName(),
-                'key' => $occurrence->getTranslationKey()->getName(),
-            ];
-        })->toArray());
+
+        if (array_key_exists('action', $data)) {
+            $occurrences = $this->getActionOccurrences($em, $data);
+
+            return $this->json(array_map(function (TranslationOccurrence $occurrence) {
+                return [
+                    'date' => $occurrence->getCreated()->format('Y-m-d H:i:s'),
+                    'key' => $occurrence->getTranslationKey()->getName(),
+                ];
+            }, $occurrences));
+        }
+
+        return $this->json(['error' => 'invalid request structure, need to include key or action parameter'], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param $data
+     * @return TranslationOccurrence[]|\Doctrine\Common\Collections\Collection
+     */
+    protected function getKeyOccurrences(EntityManagerInterface $em, $data): array
+    {
+        $key = $em->getRepository(TranslationKey::class)->findOneBy(['name' => $data['key']]);
+        if ($key === null) {
+            $key = new TranslationKey($data['key']);
+        }
+        return $em->getRepository(TranslationOccurrence::class)->findLatestByKey($key);
+    }
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param $data
+     * @return TranslationOccurrence[]|\Doctrine\Common\Collections\Collection
+     */
+    protected function getActionOccurrences(EntityManagerInterface $em, $data): array
+    {
+        $tokenName = parse_url($data['action'], PHP_URL_PATH);
+        if ($tokenName === false || array_key_exists('strict', $data)) {
+            $action = $em->getRepository(Action::class)->findOneBy(['name' => $data['action']]);
+            if ($action === null) {
+                $action = new Action($data['action']);
+            }
+            return $em->getRepository(TranslationOccurrence::class)->findLatestByAction($action);
+        }
+
+        $action = $em->getRepository(Action::class)->findOneBy(['name' => $tokenName]);
+        if ($action === null) {
+            $action = new Action($data['action']);
+        }
+        return $em->getRepository(TranslationOccurrence::class)->findLatestByTokenAction($action);
     }
 }
