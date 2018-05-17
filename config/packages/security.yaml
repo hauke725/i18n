@@ -16,6 +16,8 @@ security:
                     - App\Security\ApiKeyAuthenticator
                 provider: user_db
     access_control:
+        # temp
+        - { path: ^/translate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # require ROLE_OCCURRENCE for /occurrence
         - { path: ^/occurrence, roles: ROLE_OCCURRENCE }
         # require ROLE_USER for /+

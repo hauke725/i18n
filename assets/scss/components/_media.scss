@@ -1,0 +1,261 @@
+/* ----------------------------- */
+/* ==Media object                */
+/* ----------------------------- */
+/* recommanded HTML : <div class="media"><img class="media-figure"><div class="media-content"></div></div> */
+/* see http://codepen.io/raphaelgoetter/pen/KMWWwj */
+
+@media (min-width: $tiny) {
+  .media {
+    display: flex;
+    align-items: flex-start;
+
+    &-content {
+      flex: 1 1 0%;
+    }
+
+    // vertical align image
+    &-figure--center {
+      align-self: center;
+    }
+    // reverse variant
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+/* Drop zone to upload image */
+
+.DropzoneImageUpload {
+  //height: 27rem;
+  height: 16.875rem;
+  width: 100%;
+  border: 2px dashed $col-wineyard;
+  border-radius: 2px;
+  background: $white url('/img/picture.svg') no-repeat center center;
+  background-size: 20%;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+  &.bottle {
+    //height: 40rem;
+    height: 25rem;
+    background-image: url('/img/icons/upload-bottle.svg');
+  }
+
+  &.label-front {
+    background-image: url('/img/icons/upload-label-front.svg');
+    }
+
+  &.label-back {
+    background-image: url('/img/icons/upload-label-back.svg');
+  }
+  
+  .dz-message {
+    display: block;
+
+    &.hidden,
+    &.-hidden {
+      display: none;
+    }
+  }
+
+  &.label-front,
+  &.label-back {
+
+    .dz-message {
+      font-size: 80%;
+
+      &:not(.message) {
+        display: none;
+      }
+    }
+
+    @include respond-to(small-up) {
+      height: auto;
+    }
+  }
+
+  .merchant-unit & {
+    border-color: $col-dealer;
+  }
+
+  .agency-unit & {
+    border-color: $col-agency;
+  }
+
+  &.preview {
+    background-color: $gray-100;
+  }
+
+  /*&.merchant {
+    //height: 32rem;
+    height: 20rem;
+  }*/
+
+  &.package {
+    background: $white;
+    background-image: none;
+
+    & + p.message {
+      display: none;
+    }
+
+    .dz-message {
+
+      padding: 0em;
+
+      img {
+        outline: none;
+      }
+    }
+  }
+
+  .instructions {
+    margin: $spacer-tiny 0;
+    padding: 0 $spacer-small;
+    text-align: center;
+    font-weight: bold;
+    line-height: $line-height-s;
+  }
+
+  .progress {
+    display: none;
+  }
+
+  &.load {
+    border-style: solid;
+    border-color: $white;
+    background-color: $black;
+    background-image: none;
+
+    .dz-message,
+    .icon-btn {
+      display: none;
+    }
+
+    .progress {
+      display: block;
+      width: 60%;
+      margin: 9em auto;
+      background-color: $white;
+
+      span {
+        background-color: $black;
+      }
+    }
+  }
+
+  &.error {
+    border-color: $color-danger;
+    background-color: lighten($color-danger,45%);
+    background-image: none;
+    position: relative;
+
+    &:before{
+      content: '';
+      position: absolute;
+      background-image: url('/img/picture_red.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 70%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      opacity: .3;
+    }
+
+    .dz-message{
+      color: $color-danger;
+    }
+  }
+
+  &-file{
+    background-image: url('/img/file.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40%;
+  }
+
+  & + p.message {
+    margin: 0;
+  }
+
+  // Delete button
+
+  .icon-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.075em 0.20em;
+    color: $color-danger;
+    border-radius: 0px 0px 0px 2px;
+
+    &:hover{
+      background: $color-danger;
+      color: $white;
+    }
+  }
+
+  &.dz-drag-hover {
+    border-style: solid;
+
+    &.preview {
+      background: $white;
+    }
+
+    .dz-message {
+      opacity: 0.5;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .dz-message {
+      color: $color-base;
+    }
+
+    &.error {
+
+      .dz-message {
+        color: darken($color-danger,10%);
+      }
+    }
+  }
+}
+
+.dz-message{
+  padding: 0 .9375em;
+  text-align: center;
+  margin: auto;
+  transition: all .2s;
+  max-height: 20em;
+
+  img{
+    outline: 1px solid darken($color-base, 5%);
+    max-width: 100%;
+  }
+}
+
+// Position for label blocs
+
+.drop-image-label {
+
+  @include respond-to(small) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & > * {
+      width: calc(100% / 2 - 0.325rem - 0.01px);
+      //height: 16rem;
+      height: 10rem;
+    }
+  }
+}

@@ -1,0 +1,617 @@
+/* ---------------------------------- */
+/* ==Helpers                          */
+/* ---------------------------------- */
+
+/* Color Helpers  */
+/* ------------- */
+
+.c-success {
+  color: $color-success;
+}
+
+.c-warning {
+  color: $color-warning;
+}
+
+.c-danger {
+  color: $color-danger;
+}
+
+.c-link {
+  color: $link-color;
+
+  .winegrower-unit & {
+    color: $col-wineyard;
+  }
+
+  .merchant-unit & {
+    color: $col-dealer;
+  }
+}
+
+.c-gray {
+  color: $gray-600;
+}
+
+.c-wineyard {
+  color: $col-wineyard;
+}
+
+.c-dealer {
+  color: $col-dealer;
+}
+
+.c-agency {
+  color: $col-agency;
+}
+
+.c-vdp {
+  color: $col-vdp;
+}
+
+.c-gold {
+  color: $color-gold;
+}
+
+/* Background Helpers */
+/*--------------------*/
+
+.back-white {
+  background: $white;
+}
+
+.back-g200 {
+  background: $gray-200;
+}
+
+.back-gradient {
+  background: radial-gradient(ellipse at center,#fff 0,#c9c9c9 100%);
+}
+
+// Category colors
+
+// Redwine
+span.back-red{
+  background: $prodCol1;
+  color: $white;
+}
+
+// Whitewine
+span.back-white{
+  background: $prodCol2;
+  color: $color-base;
+}
+// Rose
+span.back-rose{
+  background: $prodCol3;
+  color: $color-base;
+}
+
+// Rotling, Perlwein, Champagne...
+span.back-sparkling{
+  background: $prodCol4;
+  color: $white;
+}
+
+// WLS Tickets
+span.back-digital{
+  background: $prodCol20;
+  color: $white;
+}
+
+/* Typo Helpers  */
+/* ------------- */
+
+.u-title {
+  font-family: $font-family-headings;
+}
+
+.u-bold {
+  font-weight: $weight-bold;
+}
+
+.u-italic {
+  font-style: italic;
+}
+
+.u-normal {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+}
+
+.u-uppercase {
+  text-transform: uppercase;
+}
+
+.u-lowercase {
+  text-transform: lowercase;
+}
+
+.u-smaller {
+  font-size: 0.6em;
+}
+
+.u-small {
+  font-size: 0.8em;
+}
+
+.u-big {
+  font-size: 1.2em;
+}
+
+.u-bigger {
+  font-size: 1.5em;
+}
+
+.u-biggest {
+  font-size: 2em;
+}
+
+.u-weight300 {
+  font-weight: 300;
+}
+
+.u-txt-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: normal;
+}
+
+.u-txt-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.u-txt-noellipsis {
+  white-space: normal;
+  text-overflow: clip;
+  overflow: visible;
+}
+
+.u-lineh-s {
+  line-height: 1;
+}
+
+@if variable-exists(hyphens) and $hyphens==true {
+  @media (max-width: ($small - 1)) {
+    div,
+    textarea,
+    table,
+    td,
+    th,
+    code,
+    pre,
+    samp {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+  }
+}
+
+/* State Helpers */
+/* ------------- */
+
+/* invisible for all */
+.is-hidden,
+.js-hidden,
+[hidden] {
+  display: none;
+}
+
+/* hidden but not for an assistive technology like a screen reader, Yahoo! method */
+.visually-hidden,
+.sr-only{
+  position: absolute !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
+.-is-disabled,
+.-js-disabled,
+[disabled],
+.-is-disabled ~ label,
+[disabled] ~ label {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  filter: grayscale(1);
+}
+
+.-is-interactive {
+  cursor: pointer;
+}
+
+ul {
+  &.is-unstyled,
+  &.unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+.color--inverse {
+  color: $white;
+}
+
+/* Width Helpers */
+/* ------------- */
+
+/* blocks widths (percentage and pixels) */
+$i: 100;
+
+@while $i > 0 {
+    .w#{$i} {
+      width: $i * 1%;
+    }
+    $i: $i - 5;
+}
+.w66 {
+  width: calc(100% / 3 * 2);
+}
+.w33 {
+  width: calc(100% / 3);
+}
+
+$i: 1000;
+
+.wauto {
+  width: auto;
+}
+
+.w20p {
+  width: 25px;
+}
+
+.w75p {
+  width: 75px;
+}
+
+.w960p {
+  width: 960px;
+}
+
+.mw960p {
+  max-width: 960px;
+}
+
+.w1140p {
+  width: 1140px;
+}
+
+.mw1140p {
+  max-width: 1140px;
+}
+
+@while $i > 0 {
+    .w#{$i}p {
+      width: $i * 1px;
+      min-width: $i * 1px;
+    }
+    $i: $i - 50;
+}
+
+$i: 1000;
+
+
+@while $i > 0 {
+  .mw#{$i}p {
+    min-width: $i * 1px;
+  }
+  $i: $i - 50;
+}
+
+$i: 1200;
+
+.mw770p {
+  min-width: 770px;
+}
+
+.mw820p {
+  min-width: 820px;
+}
+
+
+@while $i > 0 {
+  .maxw#{$i}p {
+    max-width: $i * 1px;
+  }
+  $i: $i - 50;
+}
+
+.h40p {
+  height: 40px;
+}
+
+.h50p {
+  height: 50px;
+}
+
+.h100p {
+  height: 100px;
+}
+
+/* Spacing Helpers */
+/* --------------- */
+
+.man,
+.ma0 {
+  margin: 0;
+}
+
+.pan,
+.pa0 {
+  padding: 0;
+}
+
+.pat {
+  padding: $spacer-tiny;
+}
+
+.mas {
+  margin: $spacer-small;
+}
+
+.mam {
+  margin: $spacer-medium;
+}
+
+.mal {
+  margin: $spacer-large;
+}
+
+.pas,
+ul.pas{
+  padding: $spacer-small;
+}
+
+.pam {
+  padding: $spacer-medium;
+}
+
+.pal {
+  padding: $spacer-large;
+}
+
+.mtn,
+.mt0 {
+  margin-top: 0;
+}
+
+.mts {
+  margin-top: $spacer-small;
+}
+
+.mtm {
+  margin-top: $spacer-medium;
+}
+
+.mtl {
+  margin-top: $spacer-large;
+}
+
+.mrn,
+.mr0 {
+  margin-right: 0;
+}
+
+.mrt {
+  margin-right: $spacer-tiny;
+}
+
+.mrs {
+  margin-right: $spacer-small;
+}
+
+.mrm {
+  margin-right: $spacer-medium;
+}
+
+.mrl {
+  margin-right: $spacer-large;
+}
+
+.mbn,
+.mb0 {
+  margin-bottom: 0;
+}
+
+.mbs {
+  margin-bottom: $spacer-small;
+}
+
+.mbm {
+  margin-bottom: $spacer-medium;
+}
+
+.mbl {
+  margin-bottom: $spacer-large;
+}
+
+.mln,
+.ml0 {
+  margin-left: 0;
+}
+
+.mlt {
+  margin-left: $spacer-tiny;
+}
+
+.mls {
+  margin-left: $spacer-small;
+}
+
+.mlm {
+  margin-left: $spacer-medium;
+}
+
+.mll {
+  margin-left: $spacer-large;
+}
+
+.mauto {
+  margin: auto;
+}
+
+.mtauto {
+  margin-top: auto;
+}
+
+.mrauto {
+  margin-right: auto;
+}
+
+.mbauto {
+  margin-bottom: auto;
+}
+
+.mlauto {
+  margin-left: auto;
+}
+
+.ptn,
+.pt0 {
+  padding-top: 0;
+}
+
+.ptt {
+  padding-top: $spacer-tiny;
+}
+
+.pts {
+  padding-top: $spacer-small;
+}
+
+.ptm {
+  padding-top: $spacer-medium;
+}
+
+.ptl {
+  padding-top: $spacer-large;
+}
+
+.prn,
+.pr0 {
+  padding-right: 0;
+}
+
+.prs {
+  padding-right: $spacer-small;
+}
+
+.prm {
+  padding-right: $spacer-medium;
+}
+
+.prl {
+  padding-right: $spacer-large;
+}
+
+.pbn,
+.pb0 {
+  padding-bottom: 0;
+}
+
+.pbt {
+  padding-bottom: $spacer-tiny;
+}
+
+.pbs {
+  padding-bottom: $spacer-small;
+}
+
+.pbm {
+  padding-bottom: $spacer-medium;
+}
+
+.pbl {
+  padding-bottom: $spacer-large;
+}
+
+.pln,
+.pl0 {
+  padding-left: 0;
+}
+
+.pls {
+  padding-left: $spacer-small;
+}
+
+.plm {
+  padding-left: $spacer-medium;
+}
+
+.pll {
+  padding-left: $spacer-large;
+}
+
+.overflow-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Languages Helpers  */
+/* ------------- */
+
+[class*="lang-"] {
+  line-height: $line-height-base;
+
+  &::after {
+    content:"";
+    display: inline-block;
+    vertical-align: middle;
+    //width: 2.4rem;
+    width: 1.5rem;
+    //height: 1.6rem;
+    height: 1em;
+    background: url('/img/icons/flag-de.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+.lang-en::after {
+  background: url('/img/icons/flag-en.png') no-repeat center center;
+  background-size: cover;
+}
+
+.lang-fr::after {
+  background: url('/img/icons/flag-fr.png') no-repeat center center;
+  background-size: cover;
+}
+
+.lang-it::after {
+  background: url('/img/icons/flag-it.png') no-repeat center center;
+  background-size: cover;
+}
+
+.lang-es::after {
+  background: url('/img/icons/flag-es.png') no-repeat center center;
+  background-size: cover;
+}
+
+/* Small linie */
+
+.small-line {
+
+  &::before {
+    content: '';
+    display: block;
+    margin: $spacer-tiny auto;
+    height: 1px;
+    max-width: 50%;
+    background: $gray-400;
+  }
+}
+
+/* Position helpers  */
+/* ------------- */
+
+.pos-relative {
+  position: relative;
+}

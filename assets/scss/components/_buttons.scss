@@ -1,0 +1,606 @@
+/* ----------------------------- */
+/* ==Buttons                     */
+/* ----------------------------- */
+/* preferably use <button> for buttons !*/
+/* use .btn-- or .button-- classes for variants */
+
+%btn {
+  display: inline-block;
+  padding: $spacer-small $spacer-small-plus;
+  cursor: pointer;
+  user-select: none;
+  //transition: 0.25s;
+  //transition-property: background-color, color;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-decoration: none;
+  color: $white;
+  border: 2px solid transparent;
+  border-radius: $border-radius;
+  background-color: $col-wineyard;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  box-shadow: none;
+  text-decoration: none;
+
+  i {
+    background: $col-wineyard;
+  }
+
+  /* State */
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: darken($col-wineyard, 10%);
+    transition-property: background-color, color;
+    color: $col-wineyard;
+    border-color: $col-wineyard;
+    text-decoration: none;
+  }
+
+  .agency-unit & {
+    border-color: $col-agency;
+    background: $col-agency;
+
+    i {
+      background: $col-agency;
+    }
+
+    /* State */
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: darken($col-agency, 5%);
+      color: $white;
+      border-color: darken($col-agency, 5%);
+    }
+
+  }
+
+  .merchant-unit & {
+    border-color: $col-dealer;
+    background: $col-dealer;
+
+    &.-second {
+      background: $col-dealer-second;
+      border-color: $col-dealer;
+      color: $col-dealer;
+
+      i {
+        background: $col-dealer-second;
+
+        & + * {
+          border-left-color: $col-dealer;
+        }
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: darken($col-dealer-second, 10%);
+        color: $col-dealer;
+
+        i {
+          color: $white;
+          background: darken($col-dealer, 5%);
+        }
+      }
+    }
+
+    i {
+      background: $col-dealer;
+    }
+    /* State */
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: darken($col-dealer, 5%);
+      color: $white;
+      border-color: darken($col-dealer, 5%);
+    }
+  }
+
+  .winegrower-unit & {
+    border-color: $col-wineyard;
+    background: $col-wineyard;
+
+    &.-second {
+      background: $col-wineyard-second;
+      border-color: $col-wineyard;
+      color: $col-wineyard;
+
+      i {
+        background: $col-wineyard-second;
+
+        & + * {
+          border-left-color: $col-wineyard;
+        }
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: darken($col-wineyard-second, 10%);
+        color: $col-wineyard;
+
+        i {
+          color: $white;
+          background: darken($col-wineyard, 5%);
+        }
+      }
+    }
+
+    i {
+      background: $col-wineyard;
+    }
+    /* State */
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: darken($col-wineyard, 5%);
+      color: $white;
+      border-color: darken($col-wineyard, 5%);
+    }
+  }
+
+  &.sub {
+    background: #d6d6d6 ;
+    border-color: #bdbdbd;
+    color: #4d4d4d;
+
+    &:hover {
+      color: #4d4d4d;
+      border-color: #bdbdbd;
+    }
+  }
+
+  &.load {
+    background: $black url(../img/loader@2x.gif) no-repeat center center;
+    color: transparent !important;
+    border-color: $black !important;
+    background-size: contain;
+
+    &.load.-icon {
+      color: $white !important;
+      background: $black;
+    }
+  }
+
+  &.load.solid:before,
+  &.load.full:before {
+    display: none !important;
+  }
+
+  &.-error{
+    border-color: $color-danger;
+    background: lighten($color-danger,45%);
+    color: $color-danger;
+    &:focus{
+      border-left-color:$color-danger;
+    }
+    &:hover {
+      color: $color-danger;
+      border-color: $color-danger;
+      background: transparent;
+    }
+
+    &.-icon i + * {
+      border-left-color: $color-danger;
+    }
+
+    i {
+      background: $color-danger;
+      color: $white;
+    }
+  }
+
+  &.-danger,
+  &.bad{
+    background: $color-danger;
+    border-color: $color-danger;
+
+    i {
+      background: $color-danger;
+      color: $white;
+    }
+
+    /* State */
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      color: $color-danger;
+      border-color: $color-danger;
+    }
+
+    &.-second {
+      color: $color-danger;
+      border-color: $color-danger;
+      background: lighten($color-danger, 47%);
+
+      i {
+        background: lighten($color-danger, 47%);
+        color: $color-danger;
+      }
+
+      i + * {
+        border-color: $color-danger;
+      }
+
+      &:hover {
+
+        i {
+          background: $color-danger;
+          color: $white;
+        }
+      }
+    }
+
+    &.-icon-color {
+
+      i {
+        background: $color-danger;
+        color: $white;
+      }
+
+      &:hover {
+
+        i {
+          background: lighten($color-danger, 47%);
+          color: $color-danger;
+        }
+      }
+    }
+  }
+
+  &.-warning {
+    background: $color-warning;
+    border-color: $color-warning;
+
+    i {
+      background: $color-warning;
+      color: $white;
+    }
+
+    /* State */
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      color: $color-base;
+      border-color: $color-warning;
+    }
+  }
+
+  &.full {
+    white-space: normal;
+  }
+
+  /* Simple button, without style, border or background */
+
+  &.icon-btn {
+    border: none;
+    background: none;
+    //padding: 0.6rem 1.2rem;
+    padding: 0.4em 0.8em;
+
+    i {
+      background: none;
+      width: auto;
+      float: none;
+      margin: 0;
+      border: none;
+    }
+
+    &:hover {
+      background: $gray-600;
+    }
+
+    &.c-danger:hover{
+      background: $color-danger;
+    }
+  }
+}
+
+.btn,
+.button,
+[type="button"],
+button {
+  @extend %btn;
+
+  &:focus {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.btn,
+.button {
+  @each $name, $background-color, $color, $border in $variants-list {
+    &-#{$name} {
+      @extend %btn;
+      background-color: $background-color;
+      box-shadow: $border;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: darken( $background-color, 10% );
+      }
+    }
+  }
+}
+
+// button state variants
+.btn,
+.button {
+  &-small {
+    padding: $spacer-tiny-plus $spacer-small;
+    font-size: .8em;
+  }
+
+  &.-big {
+    padding: $spacer-small-plus $spacer-medium;
+    font-size: 1.4em;
+  }
+
+  &.-small {
+    padding: $spacer-tiny;
+    font-size: 0.8em;
+  }
+
+  &.-block {
+    width: 100% !important;
+    display: block;
+  }
+
+  &.-no-margin {
+    margin: 0;
+  }
+
+  &.u-txt-wrap {
+    white-space: normal;
+  }
+
+  &.-unstyled {
+    padding: 0;
+    border: none;
+    text-align: left;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  /* Sub button, button in gray */
+
+  &.-sub,
+  &.sub,{
+    color: $gray-600;
+    background: $gray-400;
+    border: 1px solid $gray-600;
+
+    &:hover {
+      background-color: $gray-500;
+      border-color: $color-base;
+      color: $color-base;
+    }
+
+    &.-icon:hover i {
+      color: $color-base;
+    }
+
+    i {
+      background: none;
+    }
+  }
+
+  /* Icon */
+
+  &.-icon {
+    padding: 0;
+    line-height: 2.5;
+    display: inline-flex;
+    align-items: stretch;
+    
+    @include respond-to(small) {
+
+      &.-mobile {
+
+        i {
+          line-height: 1.8;
+        }
+
+        i + * {
+          display: none;
+        }
+      }
+    }
+
+    @include respond-to(large) {
+
+      &.-icon-only i {
+        line-height: 1.8;
+      }
+    }
+
+    &.-small i {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &.load {
+      position: relative;
+
+      &::before {
+        margin: 0;
+        position: absolute;
+        //left: 1.2rem;
+        left: 0.75rem;
+        //top: 1.2rem;
+        top: 0.75rem;
+      }
+
+      i {
+        opacity: 0;
+      }
+    }
+  }
+
+  i {
+    margin: 0;
+    width: $spacer-medium-plus;
+    text-align: center;
+    border-radius: 2px 0 0 2px;
+    border: none;
+    //width: 4.7rem;
+    width: 2.9375rem;
+
+    svg.icon {
+      padding: 0;
+      font-size: 1.75em;
+      display: inline-block;
+      //margin-top: 0.5rem;
+      margin-top: 0.3rem;
+      fill: $white;
+      color: $white;
+      width: 1em;
+      height: 1em;
+    }
+
+    &.-sub svg.icon {
+      fill: $gray-600;
+      color: $gray-600;
+    }
+
+    @include respond-to(large-up) {
+      width: $spacer-large;
+      height: $spacer-large;
+    }
+
+    & + * {
+      flex: 1 1 auto;
+      border-left: $white 2px solid;
+      padding: 0 $spacer-small;
+    }
+
+    @include respond-to(medium-up) {
+      flex: 0 0 auto;
+    }
+  }
+
+  &.-sub i + * {
+    border-left: 1px solid $gray-600;
+  }
+
+  /* Two or more button together */
+
+  & + .btn {
+    margin-left: $spacer-small;
+
+    &.-no-margin {
+      margin: 0;
+    }
+  }
+
+  /* Sort button on table */
+
+  &.sort {
+    color: $gray-600;
+    padding: 0;
+    height: auto;
+    width: auto;
+    border: none;
+    display: inline-block;
+    background: none;
+    margin: 0 $spacer-tiny;
+
+    i {
+      background: none;
+      color: inherit;
+      width: auto;
+      height: auto;
+      float: none;
+      line-height: 1;
+    }
+  }
+}
+
+button.ui-datepicker-trigger {
+  padding: 0.2rem;
+}
+
+// nav "burger" button
+// active it with a JS toggle-class to .is-active
+// recommanded HTML : <button class="nav-button" type="button" role="button" aria-label="open/close navigation"><i></i></button>
+// see doc : https://knacss.com/styleguide.html#buttons
+.nav-button {
+  padding: 0;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  & > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    height: $burger-size;
+    width: $burger-size;
+    padding: $burger-padding;
+    background-color: $burger-background;
+    background-image: linear-gradient($burger-color, $burger-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-size: 100% $burger-weight;
+    transition: .25s;
+    transition-property: transform, background;
+    will-change: transform, background;
+
+    &::before,
+    &::after {
+      content: "";
+      height: $burger-weight;
+      background: $burger-color;
+      transition: .25s;
+      transition-property: transform, top;
+      will-change: transform, top;
+    }
+  }
+
+  &:hover {
+    & > * {
+      background-color: $burger-hover-background;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.is-active {
+
+    & > * {
+      background-image: none;
+      justify-content: center;
+
+      &::before {
+        transform: translateY(50%) rotate3d(0,0,1,45deg);
+      }
+      &::after {
+        transform: translateY(-50%) rotate3d(0,0,1,-45deg);
+      }
+    }
+  }
+}

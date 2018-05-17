@@ -1,0 +1,141 @@
+/* ----------------------------- */
+/* ==Badges                      */
+/* ----------------------------- */
+/* use .badge-- classes for variants */
+
+.badge {
+  display: inline-block;
+  padding: $spacer-tiny;
+  border-radius: 50%;
+  color: $color-base;
+  background-color: $color-muted;
+  line-height: 1;
+  margin: 0;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 100%;
+  }
+}
+
+.badge {
+  @each $name, $background-color, $color, $border in $variants-list {
+    &--#{$name} {
+      @extend .badge;
+      background-color: $background-color;
+      color: $color;
+    }
+  }
+}
+
+// badge state variants
+.badge {
+
+  &.-small {
+    font-size: $font-size-base - 0.4rem;
+  }
+
+  &.-big {
+    font-size: $font-size-base + 0.05rem;
+  }
+
+  &.-bigger {
+    font-size: $font-size-base + 0.4rem;
+  }
+
+  &.-no-round {
+    padding: 0 .6em;
+    border-radius: 30px;
+    line-height: 140%;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  &.-no-background {
+    border: 1px solid $color-base;
+    background: none;
+  }
+
+  &.-success {
+    border-color: $color-success;
+    background: $color-success;
+    color: $white;
+  }
+
+  &.disabled,
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:empty {
+    display: none;
+  }
+}
+
+/* Flag badges */
+/* Need to be on a relative container */
+
+.badge-flag {
+  position: absolute;
+  z-index: 1;
+  left: -$spacer-tiny;
+  right: -$spacer-tiny;
+  bottom: 2px;
+  background: $color-warning;
+
+  & > .badge-content {
+    display: block;
+    text-align: center;
+    padding: $spacer-tiny;
+    color: $white;
+    background: $color-warning;
+    line-height: $line-height-s;
+    position: relative;
+    z-index: 2;
+  }
+
+  & > a.badge-content,
+  & > button.badge-content{
+    text-decoration: none;
+    border: none;
+    width: 100%;
+
+    &:hover {
+      color: $white;
+      background: darken($color-warning,15%);
+    }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    background: darken($color-warning,30%);
+    position: absolute;
+    z-index: 1;
+    width: $spacer-tiny;
+    height: $spacer-medium;
+    left: 0;
+    top: -3px;
+    transform: skewY(-40deg);
+  }
+
+  &::after {
+    transform: skewY(35deg);
+    left: auto;
+    right: 0;
+  }
+}
+/* Liste of images elements */
+
+.img-list {
+
+  img {
+    mix-blend-mode: multiply;
+    max-height: 50px;
+  }
+}

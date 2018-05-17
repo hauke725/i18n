@@ -1,0 +1,408 @@
+/* ----------------------------- */
+/* ==Alerts                      */
+/* ----------------------------- */
+/* use .alert-- classes for variants */
+
+.alert {
+  padding: $spacer-small $spacer-small;
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  color: $color-base;
+  border-radius: $border-radius;
+  background-color: $color-muted;
+
+  & a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.alert {
+  @each $name, $background-color, $color, $border in $variants-list {
+    &--#{$name} {
+      @extend .alert;
+      background-color: $background-color;
+      color: $color;
+      box-shadow: $border;
+    }
+  }
+}
+
+// alert state variants
+.alert {
+  &--small {
+    font-size: $font-size-base - 0.4rem;
+  }
+
+  &--big {
+    font-size: $font-size-base + 0.4rem;
+  }
+
+  &--block {
+    width: 100% !important;
+    display: block;
+  }
+  &.disabled,
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:empty {
+    display: none;
+  }
+}
+
+/* Notifications */
+
+.notification-alert {
+  padding: $spacer-tiny;
+  border: 1px solid transparent;
+  color: $gray-700;
+  //font-size: 1.4rem;
+  font-size: 0.8125rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: $border-radius;
+  line-height: $line-height-base;
+
+  @include respond-to(large-up) {
+    padding: $spacer-small;
+    font-size: $font-size-base;
+  }
+
+  & > .circle {
+    flex: 0 0 auto;
+    width: $spacer-medium-splus;
+    height: $spacer-medium-splus;
+    margin-right: $spacer-small;
+    border-radius: 50%;
+    background: $orange-500;
+    text-align: center;
+    line-height: 1.8;
+
+    @include respond-to(large-up) {
+      line-height: $line-height-base;
+    }
+
+    &.-success {
+      background: $color-success;
+    }
+
+    & + * {
+      flex: 1;
+    }
+  }
+
+  .fa {
+    color: $white;
+    font-size: 0.875em;
+  }
+
+  /* Add border and background */
+
+  &.-add-border {
+    border-color: $gray-500;
+    background: $gray-100;
+  }
+
+
+  /* Others states */
+
+  &.-attention {
+
+    &.-add-border {
+      border-color: $orange-500;
+      background: lighten($orange-500, 30%);
+    }
+  }
+
+  &.-success {
+
+    & > .circle {
+      background: $color-success;
+    }
+
+    &.-add-border {
+      border-color: $color-success;
+      background: lighten($color-success, 40%);
+    }
+  }
+
+  &.-danger {
+
+    & > .circle {
+      background: $color-danger;
+    }
+
+    &.-add-border {
+      border-color: $color-danger;
+      background: lighten($color-danger, 40%);
+    }
+  }
+
+  &.-working {
+
+    & > .circle {
+      background: $gray-400;
+    }
+
+    .fa {
+      animation-name: iconrotation;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    &.-add-border {
+      border-color: $gray-400;
+      background: lighten($gray-400, 10%);
+    }
+  }
+}
+
+/* Animation for working icon */
+
+@keyframes iconrotation {
+  0%   {transform: rotate(0deg);}
+  50%  {transform: rotate(180deg);}
+  100% {transform: rotate(360deg);}
+}
+
+
+/* Win alerts */
+
+.notifications {
+  margin: 0;
+
+  .item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    background: $white;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid $col-wineyard;
+    transition: transform .15s;
+
+    &:hover {
+      transition: all .15s;
+      transform: translateX(10px);
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .img {
+      //width: 6rem;
+      width: 3.75rem;
+      text-align: center;
+      line-height: 3.75em;
+      background: $white;
+
+      img {
+        //width: 4rem;
+        width: 2.5rem;
+        //height: 4rem;
+        height: 2.5rem;
+      }
+    }
+
+    .notification-content {
+      //font-size: 1.4em;
+      font-size: 0.875em;
+      margin-left: $spacer-small;
+      flex: 1 1 0%;
+    }
+
+    .title,
+    .text {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .cta {
+      border-radius: 50%;
+      background: $col-wineyard;
+      width: 2em;
+      height: 2em;
+      text-align: center;
+      line-height: 2.5em;
+
+      i {
+        color: $white;
+        font-size: 1.8em;
+      }
+    }
+
+    &::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent $white;
+      position: absolute;
+      top: calc(50% - 11px);
+      right: -10px;
+    }
+  }
+
+  /* Small version */
+
+  &.-small {
+
+    .item {
+      font-size: 0.85em;
+    }
+  }
+
+  /* Without border */
+
+  &.-no-border {
+
+    .item {
+      border: none;
+    }
+  }
+
+  /* Arrow on left side */
+
+  &.-left {
+
+    .item::after {
+      border-width: 10px 10px 10px 0;
+      border-color: transparent $white transparent transparent;
+      left: -10px;
+      right: auto;
+    }
+  }
+
+  /* Small notifications */
+
+  &.win .item {
+    background: #FEF6E9;
+
+    .cta {
+      background: $col-win;
+    }
+
+    &::after {
+      border-color: transparent transparent transparent #FEF6E9;
+    }
+  }
+
+  /* Timeline */
+
+  &.-timeline {
+    .item {
+      //margin-left: 2.5rem;
+      margin-left: 1.5625rem;
+
+      &::before {
+        content: '';
+        display: block;
+        border-radius: 50%;
+        //width: 1.5rem;
+        width: 0.9375rem;
+        //height: 1.5rem;
+        height: 0.9375rem;
+        border: 2px solid $gray-600;
+        background: $white;
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 7px);
+        //left: -2.6rem;
+        left: -1.625rem;
+        transition: all .15s;
+      }
+
+      &:hover {
+        transform: translateX(5px);
+
+        &::before {
+          background: $gray-600;
+          transform: translateX(-5px);
+          transition: all .15s;
+        }
+      }
+    }
+
+  }
+
+  &.win.-left .item::after {
+    border-color: transparent #FEF6E9 transparent transparent;
+  }
+}
+
+/* Timeline container */
+
+.timeline {
+  position: relative;
+  z-index: 0;
+
+  &::after {
+    content:'';
+    z-index: -1;
+    position: absolute;
+    left: $spacer-small-plus;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $gray-600;
+  }
+}
+
+/* Tooltip */
+
+.tooltip {
+  position: relative;
+
+  &:hover .tooltip-text {
+    display: block;
+  }
+}
+
+.tooltip-text {
+  display: none;
+  width: 12rem;
+  width: 7.5rem;
+  font-size: 1.2rem;
+  font-size: 0.75rem;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $gray-800;
+  color: $white;
+  text-align: center;
+  padding: $spacer-tiny 0;
+  border-radius: 4px;
+  position: absolute;
+  line-height: 1.2;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 10px 7.5px;
+    border-color: transparent transparent $gray-800 transparent;
+  }
+}
+
+/* Tips to erase overflow hidden on title-bar */
+
+.box-tile .title-bar.-overvisible,
+.certificate-tile .title-bar.-overvisible,
+.rating-tile .title-bar.-overvisible {
+  overflow: visible;
+}
+
+.rating-tile.frankenwein .title-bar.-overvisible {
+  background-size: 100%;
+  background-position: 2px center;
+}

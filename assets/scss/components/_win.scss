@@ -1,0 +1,328 @@
+/* Send Background - add an background image off paper plane for formular */
+
+@include respond-to(medium-up) {
+
+  .send-background {
+    background: url('/img/win/send-background.jpg') center bottom no-repeat;
+  }
+}
+
+/* Win vineyard - notifications on dashboard */
+
+.notifications-win {
+  background: $gray-200;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacer-small;
+
+  & > .title {
+    background: $col-win;
+    color: $white;
+    padding: $spacer-small;
+    margin: 0;
+  }
+
+  .timeline {
+    flex: 1 1 0%;
+
+    &::after {
+      background: $col-win;
+    }
+  }
+
+  .notifications.-timeline {
+    padding-right: $spacer-small;
+    overflow-y: auto;
+    flex: 1 1 0%;
+    //max-height: 20rem;
+    max-height: 12.5rem;
+
+    .item::before {
+      border-color: $col-win;
+      background: $gray-200;
+    }
+
+    .item:hover::before {
+      background: $col-win;
+    }
+  }
+
+  @include respond-to(small-up) {
+    margin-bottom: 0;
+
+    .notifications.-timeline {
+      //max-height: 25.3rem;
+      max-height: 15.8125rem;
+    }
+  }
+
+  @include respond-to(large-up) {
+
+    .notifications.-timeline {
+      //max-height: 34.9rem;
+      max-height: 21.8125rem;
+    }
+  }
+}
+
+/* Win vineyard - maps */
+
+.win-mapvineyard {
+  //height: 20rem;
+  height: 12.5rem;
+
+  @include respond-to(large-up) {
+    //height: 30rem;
+    height: 18.75rem;
+  }
+}
+
+/* Win vineyard - search dealer */
+
+.dealer-search {
+  background: $gray-400;
+
+  .input-merchant-search {
+    width: 100% !important;
+  }
+
+  .merchant-search {
+    background: $gray-100;
+    z-index: 3;
+    position: absolute;
+    //left: -2rem;
+    left: -1.25rem;
+    //top: 4.1rem;
+    top: 2.55rem;
+    border-radius: 0;
+    border: 1px solid $gray-300;
+    list-style: none;
+    width: 100%;
+    margin: 0 0 0 $spacer-medium;
+    padding: 1rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+
+    li {
+      padding: $spacer-tiny $spacer-small;
+      border-bottom: 1px solid $gray-600;
+      margin: 0;
+      text-align: left;
+      width: auto;
+      line-height: $line-height-base;
+    }
+    
+    small {
+      display: block;
+    }
+
+    .add-merchant {
+      border-radius: 3px;
+      text-align: center;
+      margin-top: $spacer-tiny;
+      padding: $spacer-tiny $spacer-small;
+      background: $col-wineyard;
+      color: $white;
+      cursor: pointer;
+      font-weight: 700;
+      border: 1px solid $col-wineyard;
+      transition: background-color .25s;
+
+      i {
+        font-size: 1.1em;
+        margin-left: $spacer-small;
+        display: inline-block;
+      }
+
+      &:hover {
+        background: transparent;
+        color: $col-wineyard;
+      }
+    }
+  }
+}
+
+/* Win - Text for email settings */
+
+.l-desc {
+    
+  @include respond-to(small-up) {
+    display: none;
+  }
+  
+  @include respond-to(extra-large-up) {
+    display: inline;
+    font-size: 90%;
+  }
+}
+
+/* Win - Dealer, products search */
+
+.search-product {
+  position: relative;
+
+  & > .zoom {
+    display: block;
+    //width: 7.8rem;
+    width: 4.875rem;
+    //height: 7.8rem;
+    height: 4.875rem;
+    border-radius: 50%;
+    border: 4px solid $gray-700;
+    position: absolute;
+    right: -20px;
+    bottom: 20px;
+    z-index: 3;
+    background: $white;
+
+    &::after {
+      content: "";
+      width: 4px;
+      height: 30px;
+      background: $gray-700;
+      transform: rotate(-45deg);
+      position: absolute;
+      right: -5px;
+      bottom: -25px;
+      display: block;
+    }
+  }
+
+  .zoomimg {
+    display: block;
+    //width: 7rem;
+    width: 4.375rem;
+    //height: 7rem;
+    height: 4.375rem;
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    opacity: 0.6;
+    border-radius: 50%;
+  }
+}
+
+/* WIN Handler - Product import */
+
+.productimport-logo {
+  position: absolute;
+  top: 17%;
+  right: 0;
+  bottom: 8%;
+  width: 24%;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 100%;
+}
+/* Fix IE problems for Tabs in modal */
+
+.tabs-content-item form.modal-dialog__box {
+  display: block !important;
+}
+
+/* Win filter */
+
+.win-filter {
+  padding: $spacer-tiny $spacer-small;
+  background: $gray-600;
+  border-radius: 3px 3px 0 0;
+
+  label,
+  p {
+    color: $white;
+    text-align: left;
+  }
+
+  &.-lighter {
+    background: $gray-500;
+  }
+}
+
+.table-filter > thead tr {
+  background: $gray-500 !important;
+  border-left: 1px solid $gray-500;
+  border-right: 1px solid $gray-500;
+
+  th {
+    padding-top: $spacer-small;
+    padding-bottom: $spacer-small;
+    color: $white;
+  }
+
+  &:hover {
+    background: $gray-500 !important;
+
+    th {
+      background: $gray-500 !important;
+    }
+  }
+
+  .btn.sort {
+    color: $white;
+  }
+}
+
+.table-filter.-lighter > thead tr {
+  background: $gray-400 !important;
+  border-left: 1px solid $gray-400;
+  border-right: 1px solid $gray-400;
+
+  th {
+    color: $color-base;
+  }
+
+  &:hover {
+    background: $gray-400 !important;
+
+    th {
+      background: $gray-400 !important;
+    }
+  }
+
+  .btn.sort {
+    color: $color-base;
+  }
+}
+
+/* Win Settings */
+
+.win-settings {
+
+  .option {
+    font-size: 0.875rem;
+    color: $gray-600;
+    min-width: 3.5rem;
+    min-width: 2.1875rem;
+    text-align: center;
+
+    label {
+      padding-top: 0.3rem;
+    }
+
+    @include respond-to(medium-up) {
+      min-width: 8rem;
+      min-width: 5rem;
+    }
+  }
+
+  input[type="radio"] + label:before {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .line {
+    padding: $spacer-small 0;
+    border-bottom: 1px solid $gray-200;
+
+    &.-top {
+      border-top: 1px solid $gray-200;
+    }
+  }
+
+  @include respond-to(medium) {
+
+    .small-hidden + .line.-top {
+      border-top: none;
+    }
+  }
+}

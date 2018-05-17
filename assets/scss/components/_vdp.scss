@@ -1,0 +1,14 @@
+/* Catalog VDP */
+
+.catalog-row {
+  border-top: 1px solid $col-vdp;
+  border-bottom: 1px dashed $col-vdp;
+  border-width: 1px;
+  padding: .4em 0 0 !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: $white;
+  min-height: 5em!important;
+}

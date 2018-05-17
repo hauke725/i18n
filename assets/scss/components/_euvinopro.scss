@@ -1,0 +1,1466 @@
+/* General styles for EuvinoPro */
+
+.zebra {
+
+  .zebra-item {
+    padding: $spacer-medium 0;
+  }
+
+  & > .zebra-item:nth-child(odd),
+  & > .zebra-dark {
+    background: $gray-300;
+  }
+
+  & > .zebra-item.zebra-light {
+    background: none;
+  }
+}
+
+/* Sticky title */
+
+.sticky-wrapper {
+  position: relative;
+  float: none;
+
+  .top-header {
+    background: none;
+  }
+
+  // Informations on Stiky header
+
+  .sticky-informations {
+    display: none;
+
+    p {
+      line-height: 1.4;
+    }
+  }
+
+  .top-header.stuck {
+    width: 100%;
+    position: fixed;
+    //top: 5rem;
+    top: 3.125rem;
+    left: 0;
+    right: 0;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+
+    .sticky-header {
+      background: $gray-400;
+      width: 100%;
+      padding: 0 1rem;
+      width: 100%;
+      margin: 0 auto;
+      box-shadow: 0 2px 5px #222;
+
+      label,
+      .fake-label {
+        margin-top: 5px;
+      }
+
+      &.grid-2 {
+        display: block;
+
+        & > * {
+          margin: 0;
+          width: auto;
+        }
+      }
+      
+      .subtitle {
+        display: none;
+      }
+      
+      @include respond-to(medium-up) {
+        max-width: $medium;
+      }
+
+      @include respond-to(large-up) {
+        max-width: $large;
+        padding-left: 0;
+        padding-right: 0;
+
+        &.grid-2 {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          & > * {
+            width: calc(100% / 2 - 1.25rem - 0.01px);
+            margin-right: 0.625rem;
+            margin-left: 0.625rem;
+          }
+        }
+
+        // Informations on Stiky header
+
+        .sticky-informations {
+          display: block;
+        }
+      }
+
+      @include respond-to(extra-large-up) {
+        max-width: 1244px;
+      }
+    }
+  }
+}
+
+/* Sticky save fallback */
+#header-message.stuck {
+  position: fixed;
+  top: 40px;
+  z-index: 4;
+  -webkit-box-shadow: 0 2px 5px #222;
+  box-shadow: 0 2px 5px #222;
+}
+
+/* Add border on a container */
+
+.combinator {
+  border: 1px solid $gray-400;
+  margin: 0;
+  zoom: 1;
+}
+
+/* Informations box with gray background and icon */
+
+.info-block {
+  background: $gray-100;
+  border: 1px solid $gray-500;
+  padding: $spacer-medium $spacer-large $spacer-medium $spacer-medium;
+  border-radius: 5px;
+  position: relative;
+
+  &::before {
+    content: '\f0eb';
+    font-family: 'FontAwesome';
+    font-size: 1.75em;
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    color: $gray-500;
+  }
+
+  &.-without-icon {
+    padding: $spacer-small;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  &.-darker {
+    background: $gray-300;
+  }
+}
+
+/* Simple list with white background and separation between elements */
+
+.simple-list {
+  border: 1px solid $gray-400;
+  background: rgba(255,255,255,.35);
+  //padding: 0 0.5rem;
+  padding: 0 0.325rem;
+  list-style: none;
+  margin: 0;
+
+  .item {
+    //padding: 0.4rem 0;
+    padding: 0.3rem 0;
+    background: none;
+
+    & + .item {
+      border-top: 1px solid $gray-300;
+      margin: 0;
+    }
+  }
+}
+
+/* Sticky save button */
+
+.submit-box {
+  right: 0;
+  bottom: 0;
+  -webkit-box-shadow: 0 -2px 5px #222;
+  z-index: $zindex-navigation;
+  box-shadow: 0 -2px 5px #222;
+
+  &.relative {
+    border-radius: 0;
+    box-shadow: none;
+
+    .btn {
+      width: 100%;
+      border-radius: 0;
+
+      &:hover {
+        background-color: darken($col-wineyard, 5%);
+        color: $white;
+
+        .merchant-unit & {
+          background-color: darken($col-dealer, 5%);
+        }
+
+        .agency-unit & {
+          background-color: darken($col-agency, 5%);
+        }
+      }
+    }
+  }
+}
+
+.container .submit-box.relative {
+  //margin-left: -1rem;
+  margin-left: -0.625rem;
+  //width: calc(100% + 2rem);
+  width: calc(100% + 1.25rem);
+
+  &.fixed {
+    margin-left: 0;
+  }
+}
+
+/* Recommendations foods with icons */
+
+.food-recommendations {
+  display: block;
+
+  @include respond-to(extra-large-up) {
+    //height: 4rem;
+    height: 2.5rem;
+    line-height: $line-height-base;
+  }
+}
+
+/* Container with gradient background */
+
+.header-image {
+  background: radial-gradient(ellipse at center,#fff 0,#c9c9c9 100%);
+  border-top: 2px solid $col-wineyard;
+  border-bottom: 2px solid $col-wineyard;
+  padding: 30px 0;
+
+  .merchant-unit & {
+    border-top-color: $col-dealer;
+    border-bottom-color: $col-dealer;
+  }
+}
+
+/* Table price on product */
+
+.ItemPricing{
+
+  input{
+    &[type="text"]{
+      width: 100%;
+      margin-bottom: 0;
+    }
+    &.switch+label{
+      margin-left: 0;
+    }
+  }
+
+  .add-line,
+  .add-line-r {
+    position: relative;
+
+    &::after {
+      content: "";
+      height: 3px;
+      left: -20px;
+      top: 50%;
+      margin-top: -3px;
+      width: 1em;
+      position: absolute;
+      background: $gray-500;
+    }
+  }
+
+  // Sale price
+
+  .-sale {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+
+  // Bottle at the left side
+
+  .ItemPricingHeader {
+    width: 40%;
+    position: relative;
+    float: left;
+    padding-right: 1em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /*@media (min-width:(@screenTablet)) {
+      width: 20%;
+    }*/
+
+    &::before {
+      content:"";
+      height: 3px;
+      right: 0;
+      top: 50%;
+      margin-top: -16px;
+      width: 1em;
+      position: absolute;
+      background: $gray-200;
+    }
+
+    img {
+      display: none;
+    }
+
+    /*@media (min-width:(@screenDesktop)) {
+
+      img {
+        display: inline-block;
+        vertical-align: middle;
+        width: 32%;
+        margin-right: 5%;
+      }
+
+      .ItemPricingHeaderPrice {
+        display: inline-block;
+        vertical-align: middle;
+        width: 60%;
+      }
+    }*/
+  }
+
+  .ItemPricingBody {
+    float: none;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    width: 100%;
+
+    /*@media (min-width:(@screenTablet)) {
+      width: 80%;
+    }*/
+
+    tr:nth-of-type(even),
+    tr:nth-of-type(odd),{
+      background: none;
+      border: none;
+      border: none;
+    }
+
+    tr:nth-of-type(odd):first-child td{
+      border-top: none;
+    }
+
+    th.lpadding{
+      padding-left: 1em;
+    }
+
+    tr {
+      position: relative;
+      z-index: 1;
+
+      td {
+        height: 60px;
+        position: relative;
+        z-index: 1;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        &::after {
+          content: '';
+          position: absolute;
+          background: $gray-100;
+          top: 5px;
+          right: 0;
+          bottom: 5px;
+          left: 0;
+          z-index: -1;
+        }
+      }
+
+      &.warning {
+
+        .ChannelLogo {
+          filter: grayscale(100%) opacity(60%);
+        }
+
+        td::after {
+          background: $gray-200;
+        }
+      }
+
+      &.active td::after {
+        background: #EFF8EE;
+      }
+
+      td:first-child {
+        position: relative;
+        border-left: none;
+        //padding: 0.8em 0 0.8em 0.8em;
+        padding-left: 0.8em;
+
+        .border {
+          position: absolute;
+          top: 0;
+          left: -5px;
+          bottom: 0;
+          width: 3px;
+          background: $gray-500;
+          display: block;
+        }
+
+        // Network line
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: -3px;
+          width: 0.8em;
+          top: 49%;
+          height: 3px;
+          height: 3px;
+          background: $gray-500;
+        }
+
+        &::after {
+          left: 5px;
+        }
+      }
+
+      &:first-child:not(:last-child) td:first-child,
+      &:last-child:not(:first-child) td:first-child,
+      &:last-child:first-child:last-child td:first-child{
+        border-left-color: transparent;
+
+        .border {
+          display: none;
+        }
+
+        &::before {
+          background: none;
+          bottom: 0;
+          width: 15px;
+          height: auto;
+          left: -5px;
+          border: 3px solid $gray-500;
+          border-right: none;
+        }
+      }
+
+      &:first-child:not(:last-child) td:first-child::before{
+        border-bottom: none;
+        border-radius: 5px 0 0 0;
+      }
+
+      &:last-child:not(:first-child) td:first-child::before {
+        border-radius: 0 0 0 5px;
+        bottom: 51%;
+        top: 0;
+        border-top: none;
+      }
+    }
+
+    // Status
+
+    .ChannelStatus {
+      position: relative;
+    }
+
+    .ItemPricingStatus {
+      display: inline-block;
+      width: auto;
+      height: auto;
+      border-radius: 50%;
+      border: 3px solid $gray-500;
+
+      & > em {
+        display: block;
+        width: 1.5em;
+        height: 1.5em;
+        border: 3px solid white;
+        box-sizing: border-box;
+        background: $gray-400;
+        text-align: center;
+        border-radius: 50%;
+        color: white;
+        line-height: 1.1;
+
+        .fa {
+          font-size: 0.8em;
+        }
+      }
+
+      &.warning {
+        border-color: $color-danger;
+
+        em {
+          background: $color-danger;
+          line-height: 1;
+
+          .fa {
+            font-size: 0.75em;
+          }
+        }
+      }
+
+      &.active em {
+        background: $color-success;
+      }
+    }
+
+    // Channel logo
+    .ItemPricingChannel{
+      min-width: 110px;
+
+      @include respond-to(large-up) {
+        //min-width: 30rem;
+        min-width: 18.75rem;
+      }
+
+      &.inactive {
+        filter: none;
+
+        .ChannelLogo {
+          filter: grayscale(100%) opacity(60%);
+        }
+      }
+
+      .ChannelLogo {
+        display: inline-block;
+        width: 120px;
+        height: 45px;
+        vertical-align: middle;
+
+        /*@media (min-width:(@screenDesktop)) {
+
+          & + .hide-mobile {
+            width: ~"calc(100% - 125px)";
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.9em;
+            color: lighten(@textCol, 30%);
+          }
+        }*/
+      }
+    }
+
+    // Channel price
+    .ChannelPrice,
+    .ChannelSalePrice{
+      min-width: 90px;
+    }
+
+    // Channel informations
+    .openProductChecklist .icon-btn {
+      border-bottom: 1px dashed;
+    }
+
+    .ChannelSwitch {
+      width: 120px;
+    }
+
+    .action {
+      display: table-cell;
+      width: 50px;
+
+      &.bigger {
+        width: auto;
+        min-width: 170px;
+        text-align: right;
+      }
+
+      a {
+        height: auto;
+      }
+    }
+
+  }
+
+  &.PriceForChannel {
+
+    .ItemPricingHeader {
+      width: 25%;
+
+      img {
+        display: block;
+        width: 90%;
+      }
+    }
+
+    /*@media (min-width:(@screenTablet)) {
+      .ItemPricingHeader {
+        width: 15%;
+      }
+
+      .ItemPricingBody {
+        width: 85%;
+      }
+    }
+
+    @media (min-width:(@screenDesktop)) {
+
+      .ItemPricingHeader {
+        width: 10%;
+      }
+
+      .ItemPricingBody {
+        width: 90%;
+      }
+    }*/
+
+
+    .ChannelStatus {
+      padding-left: 1em;
+
+      &::before {
+        content: '';
+        height: 3px;
+        background: $gray-300;
+        position: absolute;
+        top: 49%;
+        left: 0;
+        width: 1em;
+      }
+    }
+  }
+
+  // After
+  .not-clickable{
+    &[data-channel] td.ItemPricingChannel .ChannelLogo{
+
+    }
+
+    td{
+      &.openProductChecklist{
+        text-align: right;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+      .progress{
+        // 0.250em relates to the 2px padding of the progress bar
+        max-width: 8em - 0.250em;
+      }
+      &[data-tooltip]{
+        position: relative;
+        +td{
+          padding-left: 0;
+        }
+        &:after{
+          content: attr(data-tooltip);
+          position: absolute;
+          top: -.85em;
+          border-radius: 30px;
+          //left: @gutter/@em/2;
+          left: 1px;
+          font-size: 0;
+          line-height: 0;
+          background-color: $gray-300;
+          color: #fff;
+          display: inline-block;
+          padding: 0 .8em;
+          opacity: 0;
+          transition: all .2s;
+          white-space: nowrap;
+        }
+        &:hover{
+          &:after{
+            opacity: 1;
+            line-height: 1.7em;
+            font-size: .7em;
+          }
+        }
+      }
+    }
+  }
+  th,td{
+    white-space: normal;
+    &:first-child{
+      //width: @2cols;
+    }
+    &:last-child{
+      text-align: left;
+    }
+  }
+}
+
+/* Tariffs */
+
+.tariffs-win {
+  background: url('/img/win-background.jpg') no-repeat top;
+  background-size: contain;
+}
+
+.count-number {
+  position: relative;
+  background: $gray-500;
+  margin:  4.5rem 2rem $spacer-large-plus;
+  //height: 1rem;
+  height: 0.625rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5) inset;
+
+  /* Numbers indicators */
+
+  &::before,
+  &::after,
+  & > p::before{
+    content: '0';
+    font-family: $font-family-headings;
+    //font-size: 1.6em;
+    font-size: 1em;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 1.25rem;
+  }
+
+  &::after {
+    content: '∞';
+    top: 0.75rem;
+    left: auto;
+    right: 0;
+    font-size: 1.5em;
+  }
+
+  & > p {
+    margin: 0;
+
+    &::before {
+      content: '500';
+      left: 50%;
+      margin-left: -0.75rem;
+    }
+  }
+
+  /* Counter */
+
+  .counter {
+    position: absolute;
+    z-index: 1;
+    top: -3.9rem;
+    transform: translateX(-50%);
+
+    // Circle
+
+    &::after {
+      content: '';
+      display: block;
+      margin: 1rem auto 0;
+      //width: 2rem;
+      width: 1.25rem;
+      //height: 2rem;
+      height: 1.25rem;
+      border: 4px solid $gray-400;
+      background: $col-dealer;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .numbers {
+    display: block;
+    //width: 7rem;
+    padding: $spacer-tiny $spacer-small;
+    line-height: 1;
+    //font-size: 3rem;
+    font-size: 1.875rem;
+    text-align: center;
+    color: $white;
+    background: $col-dealer;
+    font-family: $font-family-headings;
+    font-weight: bold;
+    position: relative;
+
+    // Triangle
+
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 7px 0 7px;
+      border-color: $col-dealer transparent transparent transparent;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  @include respond-to(large-up) {
+    margin:  7rem auto $spacer-large-plus;
+
+    &::before,
+    &::after,
+    & > p::before {
+      font-size: 1.25em;
+    }
+
+    &::after {
+      font-size: 2em;
+    }
+
+    .counter {
+      top: -6.2rem;
+
+      &::after {
+        //width: 3rem;
+        width: 1.875rem;
+        //height: 3rem;
+        height: 1.875rem;
+      }
+    }
+
+    .numbers {
+      font-size: 3.2rem;
+      padding: $spacer-small;
+    }
+  }
+}
+
+/* EuvinoPro Dashboard */
+
+/* Introduction checklist */
+
+.introduction-checklist {
+
+  & > .item {
+    padding: $spacer-small-plus 0;
+
+    & + .item {
+      border-top: 1px solid $gray-400;
+    }
+
+    &.-done {
+
+      .u-title {
+        text-decoration: line-through;
+        color: $gray-500;
+      }
+
+      .image {
+        opacity: 0.4;
+      }
+    }
+  }
+
+  @include respond-to(medium-up) {
+    .item {
+
+      .image {
+        display: block;
+        //width: 4rem;
+        width: 2.5rem;
+        //height: 4rem;
+        height: 2.5rem;
+        margin-right: 1rem;
+        margin-right: 0.625rem;
+      }
+
+      &[data-item-name="hasAddress"] .image {
+        background: url('/img/checklist-icons/address.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasBankingInformation"] .image {
+        background: url('/img/checklist-icons/bank.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasDescription"] .image {
+        background: url('/img/checklist-icons/write.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasImprint"] .image,
+      &[data-item-name="hasTermsOfService"] .image {
+        background: url('/img/checklist-icons/law.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasLogo"] .image,
+      &[data-item-name="hasProfilePicture"] .image {
+        background: url('/img/checklist-icons/image.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasProduct"] .image {
+        background: url('/img/checklist-icons/products.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasRegion"] .image {
+        background: url('/img/checklist-icons/region.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &[data-item-name="hasShippingCountry"] .image {
+        background: url('/img/checklist-icons/shipping.svg') no-repeat center center;
+        background-size: contain;
+      }
+    }
+  }
+}
+
+.main-dashboard {
+
+  /* Kanal und API tile */
+
+  & > .tile {
+    transition: all .2s;
+    border-bottom: 1px solid $white;
+    //height: 29rem;
+    height: 18.125rem;
+    position: relative;
+    background: $gray-200;
+    display: flex;
+    align-items: stretch;
+
+    &.-inactive {
+      background: $red-500;
+
+      span,
+      .tile_title{
+        color: $white;
+      }
+
+      .tile_badge {
+        background: $red-500;
+      }
+    }
+
+    @include respond-to(small-up) {
+
+      &:nth-child(2n+1) {
+        border-right: 1px solid $white;
+      }
+    }
+
+    @include respond-to(large-up) {
+      border-right: 1px solid $white;
+
+      &:nth-child(4n) {
+        border-right: none;
+      }
+    }
+
+    /* Background for services/channel */
+    &.dwine{
+      background: url('/img/winegrower/interfaces/interface-tiles/dwine@2x.jpg') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+
+      .tile_title {
+        text-shadow: 0px 0px 10px $black;
+      }
+    }
+
+    &.lexware{
+      background: url('/img/winegrower/interfaces/interface-tiles/lexware@2x.jpg') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+    }
+
+    &.magnum{
+      background: url('/img/winegrower/interfaces/interface-tiles/magnum@2x.jpg') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+
+      .tile_title{
+        color: $color-base;
+      }
+    }
+
+    &.provino{
+      background: url('/img/winegrower/interfaces/interface-tiles/provino@2x.jpg') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+    }
+
+    // Wein2000
+    &.wein2000{
+      background: url('/img/winegrower/interfaces/interface-tiles/wein2000@2x.gif') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+
+      .tile_title{
+        color: $color-base;
+      }
+    }
+
+    &.winitas{
+      background: url('/img/winegrower/interfaces/interface-tiles/winitas@2x.gif') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+
+      .tile_title{
+        color: $color-base;
+      }
+    }
+
+    &.vinopro{
+      background: url('/img/winegrower/interfaces/interface-tiles/vinopro@2x.jpg') no-repeat top center;
+      background-size: cover;
+
+      &.-inactive {
+        background-position: bottom center;
+      }
+
+      .tile_title{
+        color: $color-base;
+      }
+    }
+
+    &.vdp{
+      background-color: #302c21;
+
+      .tile_title{
+        color: $white;
+      }
+    }
+
+    &.weinde,
+    &.weinmacher{
+      background: radial-gradient(ellipse at center,#fff 0,#e6e6e6 100%);
+    }
+
+    &.win {
+      background: #fce9d8;
+    }
+
+    &.win-notifications {
+      background: url('/img/win-dashboard-background.png') center bottom no-repeat #fce9d8;
+      background-size: contain;
+
+      .notifications .last {
+        position: relative;
+        
+        &::before {
+          content: '...';
+          font-size: 3rem;
+          position: absolute;
+          color: $col-win;
+          font-weight: bold;
+          left: 0;
+          right: 0;
+          bottom: -0.3em;
+          text-align: center;
+        }
+      }
+    }
+
+    &.catalogs {
+      background: $color-base;
+
+      svg {
+        fill: $white;
+      }
+
+      .tile_title {
+        color: $white;
+      }
+    }
+
+    /* Win instructions */
+
+    &.win-instructions {
+
+      @include respond-to(small) {
+        display: block;
+      }
+
+      .img-badge {
+        width: 100%;
+      }
+    }
+
+    /* Hover effects */
+    &:hover {
+
+      .tile_badge {
+        line-height: 1.8em;
+        padding: 0 .6em;
+      }
+
+      .tile_label {
+        transform: scale(1.05);
+        letter-spacing: .07em;
+      }
+
+      img,
+      svg {
+        transform: scale(1.05);
+        transition: all .1s;
+      }
+    }
+
+  }
+
+  .link {
+    border: none;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: flex-end;
+  }
+
+  img {
+    width: 50%;
+    transition: all .1s;
+  }
+
+  .tile_label,
+  img,
+  svg{
+    align-self: center;
+  }
+
+  svg {
+    width: 40%;
+    transition: all .1s;
+  }
+
+  .tile_title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1em;
+    font-size: 1.3em;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .tile_badge {
+    display: block;
+  }
+
+  .tile-button {
+    display: inline-block;
+    background: #e1740b;
+    color: #fff;
+    padding: .1em .8em;
+    border-radius: 3px 3px 3px 3px;
+  }
+
+  /* Fix one-half on grid */
+
+  .one-half {
+
+    @include respond-to(small-up) {
+      width: 100%;
+    }
+
+    @include respond-to(large-up) {
+      width: calc(100% / 2 - 0.01px);
+    }
+  }
+}
+
+/* Orders */
+
+.order-logo {
+  display: inline-block;
+  //width: 8.5rem;
+  width: 5.3125rem;
+  //height: 4rem;
+  height: 2.5rem;
+}
+
+.order-summary {
+  border-top: 4px solid $col-wineyard;
+  border-bottom: 4px solid $col-wineyard;
+
+  &.merchant-unit {
+    border-top-color: $col-dealer;
+    border-bottom-color: $col-dealer;
+  }
+
+  &.agency-unit {
+    border-top-color: $col-agency;
+    border-bottom-color: $col-agency;
+  }
+
+  &.-danger {
+    border-top-color: $color-danger;
+    border-bottom-color: $color-danger;
+  }
+}
+
+// Order step
+
+.order-step {
+  border: 3px solid $white;
+  background: $gray-500;
+  //height: 1rem;
+  height: 1rem;
+  clear: both;
+  transform: translateY(-10px);
+
+  @include respond-to(large) {
+    max-width: 50rem;
+    max-width: 31.25rem;
+  }
+
+  & > .step {
+    border-radius: 50%;
+    border: 3px solid $white;
+    //width: 7rem;
+    width: 4.375rem;
+    //height: 7rem;
+    height: 4.375rem;
+    line-height: 2;
+    background: $col-wineyard;
+    text-align: center;
+    transform: translateX(-5px) translateY(-42%);
+    margin: auto;
+    display: inline-flex;
+    align-items: center;
+    float: left;
+
+    .merchant-unit {
+      background: $col-dealer;
+    }
+
+    .agency-unit {
+      background: $col-agency;
+    }
+
+    & + .step:not(:last-child) {
+      float: none;
+    }
+
+    &:last-child {
+      float: right;
+      transform: translateX(5px) translateY(-42%);
+    }
+    
+    span {
+      display: block;
+      margin-top: $spacer-small;
+      overflow: hidden;
+    }
+    
+    svg {
+      max-width: 50%;
+      max-height: 50%;
+      fill: $white;
+    }
+
+    // Done
+
+    &.-done {
+      position: relative;
+      background: $gray-500;
+
+      &::before {
+        content:"\f00c";
+        font-family: FontAwesome;
+        color: $color-success;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -$spacer-medium;
+        font-size: 2em;
+        line-height: 1;
+      }
+
+      svg {
+        fill: $gray-700;
+      }
+    }
+  }
+}
+
+/* Channel background */
+
+[data-channel] .ChannelLogo{
+  background-repeat: no-repeat;
+  //background-position: @gutter/@em/2 center;
+  background-position: .46875em center;
+  background-size: 80%;
+}
+
+// Portal channel
+[data-channel='0'] .ChannelLogo,
+[data-channel='3'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/portal.svg');
+  background-size: 80%;
+}
+
+// IFrame channel
+[data-channel='1'] .ChannelLogo,
+[data-channel='2'] .ChannelLogo,
+[data-channel='7'] .ChannelLogo{
+  background: url('/img/channels/table-thumbs/iframe@2x.png') no-repeat;
+  //.image-2x('/channels/table-thumbs/iframe.png',76px,30px,no-repeat);
+  background-position: center;
+  background-size: 80%;
+}
+
+// Winzer.de channel
+[data-channel='4'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/winzer-de.svg');
+  background-size: 80%;
+}
+
+// Facebook channel
+[data-channel='5'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/facebook.svg');
+  background-size: 80%;
+}
+
+// Frankenwein iframe
+[data-channel='6'] .ChannelLogo{
+  //.image-2x('{img-path}channels/table-thumbs/fw-iframe.png',180px,44px,no-repeat);
+  background: url('/img/channels/table-thumbs/fw-iframe@2x.png') no-repeat;
+  background-size: 80%;
+}
+
+// Frankenwein medal shop
+[data-channel='8'] .ChannelLogo{
+  //.image-2x('{img-path}channels/table-thumbs/fw-medals.png',180px,44px,no-repeat);
+  background-image: url('/img/channels/table-thumbs/fw-medals@2x.png') no-repeat;
+  background-size: 80%;
+}
+
+// wein.de
+[data-channel='9'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/wein-de.svg');
+  background-size: 80%;
+}
+
+// weinmacher.tv
+[data-channel='12'] .ChannelLogo{
+  //.image-2x('{img-path}channels/table-thumbs/weinmacher.png',180px,44px,no-repeat);
+  background: url('/img/channels/table-thumbs/weinmacher@2x.png') no-repeat;
+  background-size: cover;
+}
+
+// vinocheck
+[data-channel='16'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/vinocheck.png');
+  background-size: 80%;
+}
+// vivino
+[data-channel='17'] .ChannelLogo{
+  background-image: url('/img/channels/table-thumbs/vivino.png');
+  background-size: 80%;
+}
+
+/* Photo offer */
+
+.offer-photo {
+
+  & > .photo {
+    //width: 7.5rem;
+    width: 4.6875rem;
+    margin-right: $spacer-small;
+
+    @include respond-to(medium-up) {
+      width: 10rem;
+      width: 6.25rem;
+      margin-right: $spacer-large;
+    }
+
+    @include respond-to(extra-large-up) {
+      //width: 15rem;
+      width: 9.375rem;
+      margin-right: $spacer-extra-large;
+    }
+  }
+
+  & > .offer-text {
+
+    p {
+      position: relative;
+      
+      strong {
+        display: block;
+      }
+
+      @include respond-to(medium-up) {
+        margin: $spacer-medium 0 $spacer-large;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        //width: 5rem;
+        width: 3.125rem;
+        //height: 5rem;
+        height: 3.125rem;
+        background-image: url('/img/bottle-detail-01.jpg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        border: $gray-600 5px solid;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+        top: 0;
+        //left: -5.5rem;
+        left: -3.4375rem;
+        position: absolute;
+        z-index: 2;
+
+        @include respond-to(medium-up) {
+          //width: 7rem;
+          width: 4.375rem;
+          //height: 7rem;
+          height: 4.375rem;
+          //left: 9rem;
+          left: -4.7rem;
+          //top: -1.6rem;
+          top: -1rem;
+        }
+
+        @include respond-to(extra-large-up) {
+          //width: 9rem;
+          width: 5.625rem;
+          //height: 9rem;
+          height: 5.625rem;
+          //left: -9.5rem;
+          left: -6.5rem;
+        }
+      }
+
+      &.quality::before {
+        background-image: url('/img/bottle-detail-02.jpg');
+      }
+
+      &.rights::before {
+        background-image: url('/img/bottle-detail-03.jpg');
+      }
+    }
+  }
+}

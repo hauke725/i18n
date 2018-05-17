@@ -1,0 +1,166 @@
+div.jHtmlArea {
+  display: block;
+  overflow: hidden;
+  border: solid 1px $gray-300;
+  border-radius: 2px;
+  width: 100% !important;
+  overflow: hidden;
+
+  div {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  iframe,textarea {
+    width: 100% !important;
+    border: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  textarea{
+    height: 522px;
+    font-family: monospace;
+  }
+
+  .ToolBar {
+    display: inline-block;
+    display: inline-flex;
+    border-bottom: solid 1px $gray-300;
+    width: 100% !important;
+    flex-wrap: wrap;
+
+    ul{
+      margin: 0;
+      padding: 0;
+      flex: 0 0 auto;
+
+      & + ul{
+        border-left: 1px solid $gray-300;
+      }
+
+      li{
+        list-style-type: none;
+        float: left;
+        border: none;
+        padding: 0;
+        margin: 0;
+
+        &.separator{
+          //height: 2.1rem;
+          height: 1.3em;
+          //margin: 0.24rem 0.48rem;
+          margin: .15em .3em;
+          border-left: 1px solid $gray-300;
+        }
+
+        a {
+          display: block;
+          border: none;
+          cursor: pointer;
+          //padding: 0 0.7rem;
+          padding: 0 .4em;
+          //font-size: 1.9rem;
+          font-size: 1.2em;
+          line-height: 2em;
+          color: $col-wineyard;
+
+          .merchant-unit & {
+            color: $col-dealer;
+          }
+
+          .agency-unit & {
+            color: $col-agency;
+          }
+
+          &:before{
+            @extend .fawe;
+          }
+
+          &.highlighted{
+            background-color: $gray-800;
+          }
+
+          &:hover {
+            background-color: $col-wineyard;
+            color: $white;
+
+            .merchant-unit & {
+              background-color: $col-dealer;
+            }
+
+            .agency-unit & {
+              background-color: $col-agency;
+            }
+          }
+
+          &.bold:before{content:'\f032'}
+          &.italic:before{content:'\f033'}
+          &.underline:before{content:'\f0cd'}
+          &.strikethrough:before{content:'\f0cc'}
+          &.link:before{content:'\f0c1'}
+          &.unlink:before{content:'\f127'}
+          &.orderedlist:before{content:'\f0cb'}
+          &.unorderedlist:before{content:'\f03a'}
+          &.image:before{content: '\f03e'; }
+          &.cut:before{content: '\f0c4'}
+          &.copy:before{content: '\f0c5'}
+          &.paste:before{content: '\f0ea'}
+
+          &.html:before{
+            font-family: $font-family-monospace;
+            content: 'HTML'
+          }
+
+          &.html.highlighted:before{
+            @extend .fawe;
+            content: '\f177';
+            padding: 0 .5em;
+          }
+
+          &.h1:before{@extend .fserif;content:'H1'}
+          &.h2:before{@extend .fserif;content:'H2'}
+          &.h3:before{@extend .fserif;content:'H3'}
+          &.h4:before{@extend .fserif;content:'H4'}
+          &.h5:before{@extend .fserif;content:'H5'}
+          &.h6:before{@extend .fserif;content:'H6'}
+          &.subscript:before{content: '\f12c'}
+          &.superscript:before{content: '\f12b'}
+          &.indent:before{content: '\f03c'}
+          &.outdent:before{content: '\f03b'}
+          &.horizontalrule{
+            //width: 3.2rem;
+            width: 2em;
+            //height: 3.2rem;
+            height: 2em;
+            position: relative;
+            &:before{
+              content: '';
+              position: absolute;
+              left: 0.5em;
+              display: block;
+              height: 1px;
+              width: 1em;
+              //margin: 1.6rem auto;
+              margin: 1em auto 0;
+              background-color: $col-wineyard;
+            }
+            &:hover{
+              &:before{
+                background-color: $white;
+              }
+            }
+          }
+          &.p:before{content: '\f1dd'}
+
+          &.justifyleft:before{content: '\f036'}
+          &.justifycenter:before{content: '\f037'}
+          &.justifyright:before{content: '\f038'}
+          &.increasefontsize:before{content: '\f031'}
+          &.decreasefontsize:before{content: '\f031'}
+          &.forecolor:before{content: '\f043'}
+        }
+      }
+    }
+  }
+}

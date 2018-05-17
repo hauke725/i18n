@@ -1,0 +1,255 @@
+/* Fonts Import */
+
+@font-face {
+  font-family: 'robotoregular';
+  src: url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
+  url('../fonts/roboto-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'robotolight';
+  src: url('../fonts/roboto-light-webfont.woff2') format('woff2'),
+  url('../fonts/roboto-light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_slabregular';
+  src: url('../fonts/robotoslab-regular-webfont.woff2') format('woff2'),
+  url('../fonts/robotoslab-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use local fonts */
+
+body {
+  font-family: 'robotolight', sans-serif;
+}
+
+strong {
+  font-family: 'robotoregular', sans-serif;
+}
+
+h1, h2 {
+  font-family: 'roboto_slabregular', serif;
+
+  i {
+    font-weight: normal;
+  }
+}
+
+h1 {
+  font-size: 1.375rem;
+}
+
+h2 {
+  font-size: 0.875rem;
+  margin: $spacer-medium 0 $spacer-tiny;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 0.75rem;
+  margin: 0 0 $spacer-tiny;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 0.65rem;
+  margin: 0 0 $spacer-tiny;
+  font-weight: bold;
+}
+
+p {
+  font-size: 0.75rem;
+  margin-bottom: $spacer-small;
+}
+
+/* Structure */
+
+.container-resume {
+  width: 900px;
+  padding-bottom: $spacer-medium;
+}
+
+/* Header */
+
+.wineyard {
+  border-top: 1px solid $gray-600;
+  border-bottom: 1px solid $gray-600;
+
+  & > .logo {
+    width: 80px;
+  }
+
+  & > .informations {
+    width: calc(100% - 90px);
+  }
+}
+
+/* Footer */
+
+footer {
+
+  .wineyard {
+    border-top: 1px solid $gray-600;
+    border-bottom: none;
+
+    & > .logo {
+      width: 100px;
+    }
+
+    & > .informations {
+      width: calc(100% - 110px);
+    }
+  }
+}
+
+/* Trophy and citations */
+
+.rating-tile {
+  border: 2px solid $gray-800;
+  width: 7rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0.625rem;
+  
+  .tile-bar {
+    display: block;
+    height: 2.5rem;
+    text-align: center;
+    background-image: url('../img/winegrower/rating-logos.svg');
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-position: center top;
+    border-bottom: 2px solid $gray-800;
+  }
+
+  .rating-points {
+    padding: $spacer-tiny;
+    font-size: 2.2rem;
+    text-align: center;
+    display: block;
+    font-family: 'roboto_slabregular', serif;
+  }
+
+  &.gault-millau {
+    border-color: #49ae52;
+
+    .tile-bar {
+      border-color: #49ae52;
+      background-color: #49ae52;
+      background-position: 1px 12px;
+    }
+  }
+
+  &.feinschmecker {
+    border-color: #e30513;
+
+    .tile-bar {
+      border-color: #e30513;
+      background-color: #e30513;
+      background-position: 6px -46px;
+      background-size: 135%;
+    }
+  }
+
+  &.wein-plus {
+    border-color: #9c2b33;
+
+    .tile-bar {
+      border-color: #9c2b33;
+      background-color: $gray-400;
+      background-position: 14px -93px;
+    }
+  }
+
+  &.awc {
+    border-color: $black;
+
+    .tile-bar {
+      border-color: $black;
+      background-color: $black;
+      background-position: 16px -249px;
+    }
+  }
+
+  &.weintrophy {
+    border-color: $black;
+
+    .tile-bar {
+      border-color: $black;
+      background-color: $black;
+      background-position: 0px -243px;
+      background-size: 97%;
+    }
+  }
+
+  &.eichelmann {
+    border-color: #ffd300;
+    color: #861971;
+
+    .tile-bar {
+      border-color: #ffd300;
+      background-color: #fff6cc;
+      background-position: 4px -139px;
+      background-size: 115%;
+    }
+  }
+
+  &.falstaff {
+    border-color: $black;
+
+    .tile-bar {
+      border-color: $black;
+      background-color: $white;
+      background-position: 19px -194px;
+    }
+  }
+}
+
+/* Table */
+
+.table {
+  margin-bottom: $spacer-small;
+
+  td {
+    width: 50%;
+    font-size: 0.75em;
+
+    &:last-child {
+      text-align: left;
+    }
+  }
+}
+
+/* Product image */
+
+.w33 {
+  width: calc(100% / 3 - 10px);
+}
+
+.product-img img {
+  min-height: 380px;
+  max-height: 500px;
+  width: auto;
+}
+
+/* 2 columns layout */
+
+.col-2 {
+
+  & > * {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% / 2 - 1.25rem);
+
+    &:nth-child(even) {
+      margin-left: 0.625rem;
+    }
+  }
+}

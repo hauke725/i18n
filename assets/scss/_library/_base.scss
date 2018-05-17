@@ -1,0 +1,383 @@
+/* ----------------------------- */
+/* ==Base (basic styles)         */
+/* ----------------------------- */
+
+/* switching to border-box model for all elements */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  /* avoid min-width: auto on flex and grid children */
+  min-width: 0;
+  min-height: 0;
+}
+
+html{
+  /* set base font-size to equiv "10px", which is adapted to rem unit */
+  /* font-size: 62.5%; */
+  font-size: 100%;
+  /* IE9-IE11 math fixing. See http://bit.ly/1g4X0bX */
+  font-size: calc(1em * 0.625);
+}
+
+body {
+  margin: 0;
+  @include font-size(base);
+  background-color: $background-base;
+  color: $color-base;
+  font-family: $font-family-base;
+  line-height: $line-height-base;
+}
+
+/* Links */
+a {
+  color: $link-color;
+  text-decoration: $link-decoration;
+
+  &:focus,
+  &:hover,
+  &:active {
+    color: $link-color-hover;
+    text-decoration: $link-decoration-hover;
+  }
+}
+
+/* Headings */
+h1, .h1-like {
+  @include font-size(h1);
+  @if variable_exists(font-family-headings) and $font-family-headings != $font-family-base{
+    font-family: $font-family-headings;
+  }
+  font-weight: $weight-medium;
+}
+
+h2, .h2-like {
+  @include font-size(h2);
+  @if variable_exists(font-family-headings) and $font-family-headings != $font-family-base{
+    font-family: $font-family-headings;
+  }
+  font-weight: $weight-medium;
+}
+
+h3, .h3-like {
+  @include font-size(h3);
+  font-weight: $weight-medium;
+}
+
+h4, .h4-like {
+  @include font-size(h4);
+  font-weight: $weight-medium;
+}
+
+h5, .h5-like {
+  @include font-size(h5);
+  font-weight: $weight-medium;
+}
+
+h6, .h6-like {
+  @include font-size(h6);
+  font-weight: $weight-medium;
+}
+
+/* Specific Euvino Title */
+
+h1.pagetitle {
+  margin-top: $spacer-tiny;
+  margin-bottom: $spacer-medium;
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.5;
+}
+
+/* Activate font Awesome */
+
+.fserif {
+  font-family: $font-family-headings;
+}
+
+.fawe {
+  font-family: FontAwesome;
+}
+
+
+/* Vertical rythm */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dd {
+  margin-top: 0;
+  margin-bottom: $headings-margin-bottom;
+
+  & + * {
+    margin-top: 0;
+  }
+
+  & .no-margin {
+    margin-bottom: 0;
+  }
+}
+
+p,
+address,
+ol,
+ul,
+dl,
+blockquote,
+pre {
+  margin-top: 0;
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+/* Avoid margins on nested elements */
+li p,
+li .p-like,
+li ul,
+li ol,
+ol ol,
+ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Max values */
+img,
+table,
+td,
+blockquote,
+code,
+pre,
+textarea,
+input,
+video,
+svg {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+
+  &.img-responsive {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Styling elements */
+ul,
+ol {
+  padding-left: 2em;
+
+  &.-check {
+
+    li {
+      list-style-type: none;
+
+
+      &::before {
+        content: "\2713";
+        display: inline-block;
+        margin-right: $spacer-tiny;
+      }
+    }
+  }
+}
+
+img {
+  vertical-align: middle;
+}
+
+em,
+.italic,
+cite,
+var {
+  font-style: italic;
+}
+
+code,
+kbd,
+mark {
+  border-radius: 2px;
+}
+
+kbd {
+  padding: 0 2px;
+  border: 1px solid #999;
+}
+
+pre {
+  tab-size: 2;
+}
+
+code {
+  padding: 2px 4px;
+  background: rgba(0, 0, 0, 0.04);
+  color: #b11;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  color: inherit;
+  border-radius: 0;
+}
+
+mark {
+  padding: 2px 4px;
+}
+
+sup,
+sub {
+  vertical-align: 0;
+}
+
+sup {
+  bottom: 1ex;
+  font-size: 60%;
+}
+
+sub {
+  top: 0.5ex;
+}
+
+blockquote {
+  position: relative;
+  padding-left: 3em;
+  min-height: 2em;
+}
+
+blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: georgia, serif;
+  font-size: 5em;
+  height: .4em;
+  line-height: .9;
+  color: $quote-color;
+}
+
+blockquote > footer {
+  margin-top: .75em;
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, .7);
+
+  &::before {
+    content: "\2014 \0020";
+  }
+}
+
+q {
+  font-style: normal;
+}
+
+q,
+.q {
+  quotes: "“" "”" "‘" "’";
+
+  &:lang(fr) {
+    quotes: "«\00a0" "\00a0»" "“" "”";
+  }
+}
+
+hr {
+  display: block;
+  clear: both;
+  height: 1px;
+  //margin: 1rem 0;
+  margin: 0.625rem 0;
+  padding: 0;
+  border: 0;
+  color: #ccc;
+  background-color: $gray-400;
+  float: none;
+}
+
+blockquote,
+figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+code,
+pre,
+samp,
+kbd {
+  white-space: pre-wrap;
+  font-family: $font-family-monospace;
+  line-height: normal;
+}
+
+/* Steps */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  .step {
+    background: $color-base;
+    display: inline-block;
+    border-radius: 50%;
+    color: $white;
+    text-align: center;
+    margin-right: $spacer-tiny;
+    font-size: 90%;
+    width: $spacer-medium;
+    height: $spacer-medium;
+    vertical-align: middle;
+
+    @include respond-to(large-up){
+      width: $spacer-medium-plus;
+      height: $spacer-medium-plus;
+      line-height: $line-height-base;
+    }
+  }
+
+  svg.icon {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+/* SVG formating */
+
+svg.icon {
+  color: $color-base;
+  fill: $color-base;
+  //width: 1.6rem;
+  //height: 1.6rem;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+}
+
+.info {
+  border: 1px solid $gray-400;
+  border-radius: 5px;
+  //padding: 1rem 2.5rem 1rem 1rem;
+  padding: 0.625rem 1.5rem 0.625rem 0.625rem;
+  position: relative;
+  background: $gray-200;
+
+  &::after {
+    @extend .fawe;
+    content:"\f0eb";
+    font-size: 1.2em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+
+  }
+}

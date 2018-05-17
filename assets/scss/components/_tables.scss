@@ -1,0 +1,485 @@
+/* ----------------------------- */
+/* ==Tables                      */
+/* ----------------------------- */
+
+table,
+.table {
+  width: 100%;
+  max-width: 100%;
+  /*table-layout: fixed;*/
+  border-collapse: collapse;
+  vertical-align: top;
+  margin-bottom: $spacer-medium;
+  border-spacing: 0;
+
+  &.tlauto {
+    table-layout: auto;
+  }
+
+  &.tlfixed {
+    table-layout: fixed;
+  }
+  
+  .vbottom {
+    vertical-align: bottom;
+  }
+}
+
+.table {
+  display: table;
+  border: 1px solid $table-border;
+  background: $table-background;
+
+  @include respond-to(large) {
+    font-size: 0.8125em;
+
+    table {
+      font-size: 1em;
+    }
+
+    small {
+      font-size: 90%;
+    }
+
+    i,
+    .fa {
+      font-size: 1rem;
+    }
+
+    .btn.-icon {
+      line-height: 3;
+    }
+  }
+
+  &.-without-border {
+    border-color: transparent;
+
+    tr,
+    td,
+    th {
+      border-color: transparent;
+    }
+  }
+  
+  &.-is-interactive {
+
+    td {
+      cursor: pointer;
+    }
+  }
+
+  &.-h60 {
+
+    td .minh {
+      //min-height: 6rem;
+      min-height: 3.75rem;
+    }
+  }
+
+  thead.add-border tr:last-child th {
+    border-bottom: 1px solid $gray-200;
+  }
+
+  thead tr:hover,
+  thead tr:hover td {
+    background: $white;
+  }
+
+  & tbody tr:hover,
+  tr:hover:nth-of-type(2n) {
+    background: $gray-400;
+  }
+
+  &.-zebra {
+
+    & tbody tr:nth-child(even),
+    & tbody tr:nth-child(even).no-hover:hover {
+      background: $gray-200;
+    }
+
+    &.-vineyard {
+      & tbody tr:nth-child(even),
+      & tbody tr:nth-child(even).no-hover:hover {
+        background: $col-wineyard-tab;
+      }
+    }
+
+    &.-dealer {
+      & tbody tr:nth-child(even),
+      & tbody tr:nth-child(even).no-hover:hover {
+        background: $col-dealer-tab;
+      }
+    }
+  }
+
+  tr.no-hover:hover{
+    background: inherit;
+
+    & > * {
+      background: inherit;
+    }
+  }
+
+  tr.-zebra,
+  th.-zebra {
+    background: $gray-200;
+  }
+
+  &.-zebra tbody tr,
+  tbody tr.-zebra{
+
+    &:hover {
+      background: $gray-400;
+    }
+
+    &.no-hover {
+      background: $gray-200;
+    }
+  }
+
+  tr.-negative {
+    background: $gray-600;
+
+    & > * {
+      color: $white;
+    }
+
+    & > * + * {
+      border-left: 1px solid $white;
+    }
+
+    &:hover {
+      background: $gray-600;
+
+      & > * {
+        background: inherit;
+      }
+    }
+  }
+
+  td.add-background {
+    border-left: 1px solid $gray-500;
+    border-right: 1px solid $gray-500;
+    background: $gray-300;
+
+    &.-danger {
+      background: lighten($color-danger, 45);
+      border-left-color: $color-danger;
+      border-right-color: $color-danger;
+    }
+  }
+
+  tr.sub-table {
+    box-shadow: 0 4px 1px rgba(0,0,0,0.4) inset;
+
+    &:hover table th,
+    &:hover table td,{
+      background: none;
+    }
+
+    table {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    thead tr {
+      background: none;
+    }
+  }
+
+  & caption {
+    caption-side: bottom;
+    padding: $spacer-small;
+    color: $table-caption-color;
+    font-style: italic;
+    text-align: right;
+  }
+
+  & tr {
+    transition: background .25s;
+    background: none;
+  }
+
+  & td,
+  & th {
+    padding: $spacer-tiny;
+    /*min-width: $spacer-medium;*/
+    vertical-align: middle;
+    border-bottom: 1px $table-border solid;
+    //text-align: left;
+    cursor: default;
+    
+    &:last-child {
+      text-align: right;
+
+      &.txtleft,
+      &.tleft {
+        text-align: left;
+      }
+
+      &.txtcenter,
+      &.tcenter {
+        text-align: center;
+      }
+    }
+    
+    &.txtleft {
+      text-align: left;
+    }
+
+    &.bleft {
+      border-left: 1px solid $table-border;
+    }
+  }
+
+  & td.pas,
+  & th.pas {
+    padding: $spacer-small $spacer-tiny;
+  }
+
+  & td.action {
+    display: table-cell;
+  }
+
+  & thead {
+    color: $table-head-color;
+    background: $table-head-background;
+    border: 1px solid transparent;
+
+    tr:hover {
+      background: none;
+    }
+
+    th {
+      white-space: normal;
+      vertical-align: top;
+    }
+  }
+
+  .notification-alert {
+    width: 100%;
+  }
+
+  a {
+    display: inline-block;
+
+    &.inl {
+      display: inline;
+    }
+  }
+
+  .title {
+    font-family: $font-family-headings;
+    color: $col-wineyard;
+
+    .merchant-unit & {
+      color: $col-dealer;
+    }
+
+    .agency-unit & {
+      color: $col-agency;
+    }
+  }
+
+  button {
+    margin: 0;
+  }
+
+  /* Channel */
+
+  tr[data-channel] td[data-tooltip]{
+    background-repeat: no-repeat;
+    position: relative;
+    min-width: 250px;
+    height: 68px;
+
+    &::after{
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 0em;
+      left: 0;
+      right: 0;
+      font-size: 0em;
+      line-height: 0em;
+      background-color: $color-base;
+      color: #fff;
+      display: inline-block;
+      padding: 0em 0.2em;
+      opacity: 0;
+      transition: all .2s;
+      text-indent: 0em;
+    }
+
+    &:hover::after{
+      opacity: 1;
+      line-height: 1.7em;
+      font-size: 1em;
+    }
+  }
+
+  // Portal
+  tr[data-channel='0'] td[data-tooltip]{
+    background-image: url('/img/channels/table-thumbs/portal.svg');
+    background-size: 120px 44px;
+    background-position: 2px center;
+  }
+  // IFrame channel
+  tr[data-channel='2'] td[data-tooltip],
+  tr[data-channel='7'] td[data-tooltip]{
+    background-image: url('/img/channels/table-thumbs/iframe@2x.png');
+    background-size: 50%;
+    background-position: 2px 5px;
+  }
+  // Winzer.de channel
+  tr[data-channel='4'] td[data-tooltip]{
+    background-image: url('/img/channels/table-thumbs/winzer-de.svg');
+    background-size: 50%;
+    background-position: 2px center;
+  }
+  // Facebook channel
+  tr[data-channel='5'] td[data-tooltip]{
+    background-image: url('/img/channels/table-thumbs/facebook.svg');
+    background-size: 40%;
+    background-position: 2px center;
+  }
+  // Frankenwein iframe
+  tr[data-channel='6'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/fw-iframe@2x.png') no-repeat 180px 44px;
+    //.image-2x('@{img-path}channels/table-thumbs/fw-iframe.png',180px,44px,no-repeat);
+    background-position: 2px center;
+  };
+  // Frankenwein medal shop
+  tr[data-channel='8'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/fw-medals@2x.png') no-repeat 180px 44px;
+    //.image-2x('@{img-path}channels/table-thumbs/fw-medals.png',180px,44px,no-repeat);
+    background-position: 2px center;
+  }
+  // Wein.de
+  tr[data-channel='9'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/wein-de.svg') no-repeat 180px 44px;
+    background-position: 2px center;
+    background-size: 120px 44px;
+  }
+  // Weinmacher TV
+  tr[data-channel='12'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/weinmacher@2x.png') no-repeat 180px 44px;
+    //.image-2x('@{img-path}channels/table-thumbs/weinmacher.png',180px,44px,no-repeat);
+    background-position: 2px center;
+    background-size: 90%;
+  }
+  // Vinocheck
+  tr[data-channel='16'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/vinocheck.png') no-repeat 180px 44px;
+    background-size: 40%;
+    background-position: 2px center;
+  }
+  // Vivino
+  tr[data-channel='17'] td[data-tooltip]{
+    background: url('/img/channels/table-thumbs/vivino.png') no-repeat 180px 44px;
+    background-size: 40%;
+    background-position: 2px center;
+  }
+}
+
+.table--auto {
+  table-layout: auto;
+}
+
+/* Tariffs table */
+
+.plans-table {
+
+  th {
+    position: relative;
+    vertical-align: top;
+
+    &.-active, {
+      background: $color-success;
+      color: $white;
+      border-left: 1px solid $color-success;
+      border-right: 1px solid $color-success;
+      border-top: 1px solid $color-success;
+
+      .badge {
+        font-size: 1.2em;
+        margin-top: 0.2em;
+      }
+
+      h3, p, .badge {
+        color: $white;
+        border-color: $white;
+      }
+    }
+
+    &.-booked, {
+      background: $black;
+      color: $white;
+      border-left: 1px solid $black;
+      border-right: 1px solid $black;
+      border-top: 1px solid $black;
+
+      h3, p, .badge {
+        color: $white;
+        border-color: $white;
+      }
+    }
+
+    h3 {
+      margin-top: $spacer-tiny;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .badgewrapper {
+      position: absolute;
+      z-index: 1;
+      top: -0.7em;
+      left: 0;
+      right: 0;
+      text-align: center;
+
+      .badge {
+        border-color: $black;
+        background: $white;
+        color: $black;
+        font-size: 75%;
+        display: inline-block;
+      }
+    }
+  }
+
+  td {
+    height: 40px;
+    border: none;
+
+    &[data-tooltip] {
+      height: 68px;
+      vertical-align: middle;
+    }
+
+    &[data-channel] td:first-child{
+      background-repeat: no-repeat;
+      height: 3em;
+    }
+
+    &.-active {
+      border-left: 1px solid $color-success;
+      border-right: 1px solid $color-success;
+    }
+
+    &.-booked {
+      border-left: 1px solid $black;
+      border-right: 1px solid $black;
+    }
+  }
+
+  tr:last-child td.-active {
+    border-bottom: 1px solid $color-success;
+  }
+
+  tr:last-child td.-booked{
+    border-bottom: 1px solid $black;
+  }
+}

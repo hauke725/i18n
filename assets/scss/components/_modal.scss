@@ -1,0 +1,170 @@
+/* ----------------------------- */
+/* ==Modal                     */
+/* ----------------------------- */
+
+/* Modal size */
+
+.modal-dialog .modal-dialog__content {
+  max-width: 85vw;
+
+   @include respond-to(extra-large-up) {
+    max-width: 55vw;
+  }
+}
+
+.modal-dialog.open .modal-dialog__content {
+  width: 37em;
+}
+
+.modal-dialog.open.-large .modal-dialog__content {
+  width: 70em;
+}
+
+/* Errors on Modal Dialog */
+
+.modal-dialog__feedback {
+  padding: 0 $spacer-small;
+
+  .bad {
+    background: $color-danger;
+    color: $white;
+    padding: $spacer-tiny;
+  }
+
+  .wrapper,
+  .container {
+    margin: 0;
+    min-height: 0;
+
+    & > * {
+      color: $white;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 2rem;
+    }
+  }
+}
+
+.modal-dialog .modal-dialog__content {
+
+  /*.container {
+    margin-left: 0;
+    margin-right: 0;
+  }*/
+
+  .txtcenter p,
+  p.txtcenter {
+    text-align: center;
+  }
+
+  p.txtright {
+    text-align: right;
+  }
+
+  .mb0 {
+    margin-bottom: 0;
+  }
+
+  *[class^="mw"] {
+    min-width: 0;
+  }
+
+}
+
+/* Fix fixed button for product page button */
+
+.modal-dialog__content {
+
+  .sticky-wrapper {
+    position: sticky;
+    bottom: 0;
+
+    .submit-box.fixed {
+      position: relative;
+    }
+  }
+  
+  .submit-box.fixed {
+    position: sticky;
+    background: $white;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    padding-top: $spacer-tiny;
+
+    .sub {
+      margin-bottom: $spacer-small;
+      width: calc(100% - 1.25rem);
+      font-size: 1em;
+    }
+  }
+}
+
+/* Product page on modal */
+.modal-dialog:not(.-large) .modal-dialog__content {
+
+  @include respond-to(small-up) {
+
+    /* Grid modifications */
+
+    [class*="grid-5"].has-gutter-l:not(.no-change) > *,
+    [class*="grid-4"].has-gutter-l:not(.no-change) > *,
+    [class*="grid-3"].has-gutter-l:not(.no-change) > * {
+      width: calc(100% / 2 - 1.25rem - 0.01px);
+    }
+
+    [class*="medium-4"].has-gutter-l:not(.no-change) > * {
+      width: calc(100% / 3 - 1.25rem - 0.01px);
+    }
+
+    [class*="medium-1"]:not(.no-change) > *
+    .modal-1 > * {
+      width: 100%;
+    }
+
+    .has-gutter-l .push {
+      margin-left: 0.625rem !important;
+    }
+  }
+}
+
+.modal-dialog__content {
+
+  /* Bloc sticky header */
+
+  .sticky-wrapper {
+    height: auto !important;
+
+    .top-header.stuck {
+      position: static;
+      top: auto;
+      left: auto;
+      right: auto;
+      margin-right: -0.625rem;
+      margin-left: -0.625rem;
+      width: calc(100% + 1.25rem);
+
+
+      .sticky-header.grid-2 {
+        background: none;
+        padding: 0;
+        box-shadow: none;
+        display: flex;
+      }
+
+      .sticky-header.grid-2 > * {
+        width: calc(100% / 4 * 3 - 1.25rem - 0.01px);
+        margin-right: 0.625rem;
+        margin-left: 0.625rem;
+      }
+
+      .sticky-header.grid-2 > .one-quarter {
+        width: calc(100% / 4 - 1.25rem - 0.01px);
+        flex: 0 0 auto;
+        display: block;
+      }
+    }
+  }
+}
